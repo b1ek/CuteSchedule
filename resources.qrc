@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="styles">styles.qss</file>
+        <file alias="wood">woodbutton.png</file>
+    </qresource>
+</RCC>

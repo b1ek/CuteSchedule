@@ -1,0 +1,11 @@
+#mainMenu QPushButton {
+    border: 2px solid #8f8f91;
+    border-radius: 6px;
+    min-width: 80px;
+
+    background-image: url(:/wood);
+    border: none;
+    max-height: 512px;
+    max-width: 512px;
+
+}
