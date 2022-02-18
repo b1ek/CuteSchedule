@@ -14,27 +14,31 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 
-set(TS_FILES Schedule_ru_RU.ts)
+set(TS_FILES src/Schedule_ru_RU.ts)
+set(INCLUDES
+    ${CMAKE_SOURCE_DIR}/include/yaml-cpp/
+    ${CMAKE_SOURCE_DIR}/include
+    )
 
 add_compile_definitions(YAML_CPP_STATIC_DEFINE)
 
-link_directories(${CMAKE_SOURCE_DIR}/lib)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+link_directories(${CMAKE_SOURCE_DIR}/src/lib)
+include_directories(${INCLUDES})
 
-find_library(YCPP yaml-cpp ${CMAKE_SOURCE_DIR}/yaml-cpp.lib)
-message(STATUS ${CMAKE_SOURCE_DIR}/yaml-cpp.lib)
+find_library(YCPP yaml-cpp ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
+message(STATUS ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 
 set(PROJECT_SOURCES
-        main.cpp
-        gui.cpp
-        gui.h
-        gui.ui
-        gradeselect.cpp
-        gradeselect.h
-        gradeselect.ui
-        resources.qrc
-        include/
-        lib/
+        src/main.cpp
+        src/gui.cpp
+        src/gui.h
+        src/gui.ui
+        src/gradeselect.cpp
+        src/gradeselect.h
+        src/gradeselect.ui
+        src/resources.qrc
+        src/include/
+        src/lib/
         ${TS_FILES}
 )
 
@@ -53,7 +57,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}/src ${TS_FILES})
 else()
     if(ANDROID)
         add_library(Schedule SHARED
@@ -67,12 +71,12 @@ else()
         )
     endif()
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}/src ${TS_FILES})
 endif()
 
 target_link_libraries(Schedule PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 #add_library(YCPP SHARED C:/Users/blek/Documents/Schedule/yaml-cpp.lib)
-target_link_libraries(Schedule PUBLIC C:/Users/blek/Documents/Schedule/yaml-cpp.lib)
+target_link_libraries(Schedule PUBLIC ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 
 set_target_properties(Schedule PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
