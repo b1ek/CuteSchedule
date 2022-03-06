@@ -10,6 +10,9 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(PICO_ENABLE_CXX_EXCEPTIONS 1)
+
+configure_file(${CMAKE_SOURCE_DIR}/src/config.yml ${CMAKE_BINARY_DIR}/config.yml COPYONLY) # copy default config
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
@@ -26,22 +29,8 @@ link_directories(${CMAKE_SOURCE_DIR}/src/lib)
 include_directories(${INCLUDES})
 
 find_library(YCPP yaml-cpp ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
-message(STATUS ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 
-set(PROJECT_SOURCES
-        src/main.cpp
-        src/gui.cpp
-        src/gui.h
-        src/gui.ui
-        src/gradeselect.cpp
-        src/gradeselect.h
-        src/gradeselect.ui
-        src/resources.qrc
-        src/include/
-        src/lib/
-        ${TS_FILES}
-)
-
+file(GLOB PROJECT_SOURCES ${CMAKE_SOURCE_DIR}/src/*.*)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Schedule

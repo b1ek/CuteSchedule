@@ -5,7 +5,6 @@ gui::gui(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::gui)
 {
-    ui->setupUi(this);
     //this->setWindowState(Qt::WindowFullScreen);
 
     QAction *quitAction = new QAction(tr("E&xit"), this);
@@ -13,13 +12,31 @@ gui::gui(QWidget *parent)
     shortcuts << QKeySequence("Ctrl+Q") << QKeySequence("Escape");
     quitAction->setShortcuts(shortcuts);
 
-
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
     addAction(quitAction);
 
-    this->selectWidget.setParent(ui->menu);
     std::cout << "Is it working?" << std::endl;
-    ui->buttonLeft->setEnabled(true);
+    //ui->buttonLeft->setEnabled(true);
+
+    connect(ui->buttonLeft, SIGNAL(clicked()), this, SLOT(on_buttonLeft_pressed()));
+
+    //ui->peace->setStyle()
+
+    ui->setupUi(this);
+
+}
+
+void gui::on_buttonLeft_pressed() {
+    ui->mainMenu->hide();
+
+    this->selectWidget = new gradeSelect(ui->menu);
+    this->selectWidget->setLayout(ui->menu->layout());
+    this->selectWidget->show();
+
+    std::cout << "Pressed left button" << std::endl;
+}
+void gui::on_buttonRight_clicked() {
+    std::cout << "Pressed right button" << std::endl;
 }
 
 gui::~gui()
@@ -27,12 +44,11 @@ gui::~gui()
     delete ui;
 }
 
-void gui::on_buttonLeft_clicked() {
-    ui->mainMenu->setMaximumHeight(0);
-    std::cout << "You clicked a button!" << std::endl;
-    this->selectWidget.show();
-    this->setTitle("Выберите класс");
-}
+
 void gui::setTitle(QString value) {
     ui->uiTitle->setText(value);
 }
+
+
+
+

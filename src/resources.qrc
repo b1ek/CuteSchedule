@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file alias="styles">styles.qss</file>
         <file alias="wood">woodbutton.png</file>
+        <file alias="peace">peace.png</file>
     </qresource>
 </RCC>

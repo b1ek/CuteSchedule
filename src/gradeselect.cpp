@@ -3,8 +3,11 @@
 
 gradeSelect::gradeSelect(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::gradeSelect)
-{
+    ui(new Ui::gradeSelect) {
+    ui->setupUi(this);
+}
+void gradeSelect::setupUi() {
+    ui->setupUi(this);
 }
 
 gradeSelect::~gradeSelect()

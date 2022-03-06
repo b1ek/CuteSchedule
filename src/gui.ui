@@ -98,7 +98,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Школы №46</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -279,6 +279,22 @@
         </spacer>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="peace">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
      </widget>
     </item>
     <item>

@@ -25,11 +25,13 @@ public:
     ~gui();
 
 private slots:
-    void on_buttonLeft_clicked();
     void setTitle(QString text);
+    void on_buttonLeft_pressed();
+
+    void on_buttonRight_clicked();
 
 private:
     Ui::gui *ui;
-    gradeSelect selectWidget;
+    gradeSelect *selectWidget;
 };
 #endif // GUI_H

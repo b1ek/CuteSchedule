@@ -1,13 +1,60 @@
 config:
     version: 1
+    author: John Doe
+    no-warnings: false
+    logpath: ./log/
+    # Если вы хотите, чтобы
+    # логи отправлялись к вам
+    # на почту, настройте это
+    emaillogs:
+        # По умолчанию протокол задан на SMTP,
+        # но вы можете изменить на IMAP или POP3
+        # protocol: SMTP
+        server-ip: smtp.yandex.ru
+        name: John Doe
+        username: john.doe # john.doe@yandex.ru
+        password: 1234
+        ssl: true
+        port: 465
+
+# Сначала задайте учителей, потом уроки, потом классы.
+# Если список с учителями слишком длинный, то его можно
+# поместить в отдельный файл с названием, например, teachers.yml.
+#
+# ВАЖНО: Название должно содержать только латинские буквы / цифры и некоторые знаки пунктуации(., ,, -, _).
+# Вы можете назвать файл как угодно, но это может вызвать нестабильность программы!
+#
+# Чтобы программа поняла, из какого файла загружать, напишите в списке
+# teachers тег external: ПУТЬКФАЙЛУ
+#
+# Оно должно выглядеть так:
+# teachers:
+#     external: ПУТЬКФАЙЛУ
+#     # Дальше программа не будет загружать!
+#     # jd1 НЕ ПОЯВИТСЯ в списке!
+#     jd1:
+#         name: J. Doe
+#         fullName: John Doe
+#         cabinet: 5c
+# Тег external работает со всеми другими списками, даже так:
+# teachers:
+#     jd1:
+#         external: teacher-jd1.yml
+
+teachers:
+    external: teachers.yml
+    jd1:
+        name: "J. Doe"
+        fullName: "John Doe"
+        cabinet: "5"
+    jd2:
+        name: "J. Doe"
+        fullName: "John Doe"
+        cabinet: "6"
+
 
 classes:
-    9A:
-        Monday:
-            1: "Английский Язык"
-            2: "Русский Язык"
-            3: "Физика"
-            4: "История"
-            5: "Алгебра"
-            6: "Химия"
-            7: "Биология"
+    rl1:
+        teacher: jd1
+        name: Русский язык
+        cabinet: 9

@@ -9,3 +9,8 @@
     max-width: 512px;
 
 }
+#peace {
+    background-image: url(:/peace);
+    background-repeat: no-repeat;
+    background-position: center top;
+}

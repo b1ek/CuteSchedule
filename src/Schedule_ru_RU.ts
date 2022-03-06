@@ -8,6 +8,11 @@
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="gradeselect.ui" line="49"/>
+        <source>PushButton</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>gui</name>
@@ -19,11 +24,6 @@
     <message>
         <location filename="gui.ui" line="80"/>
         <source>Интерактивное меню</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="gui.ui" line="101"/>
-        <source>Школы №46</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -42,12 +42,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.ui" line="301"/>
+        <location filename="gui.ui" line="317"/>
         <source>Создано в лабаратории белки(github@b1ek)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.cpp" line="11"/>
+        <location filename="gui.cpp" line="10"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>

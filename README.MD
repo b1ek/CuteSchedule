@@ -7,7 +7,7 @@ teachers
   |--stuff about him
 grades
 |--4a
-  |--stuff abotu the grade
+  |--stuff about the grade
   |--MONDAY (meaning the classes it will be on monday)
 	  |-- 4aPA
 	  |-- 4aMath

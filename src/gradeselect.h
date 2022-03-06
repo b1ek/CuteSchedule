@@ -13,6 +13,7 @@ class gradeSelect : public QWidget
 
 public:
     explicit gradeSelect(QWidget *parent = nullptr);
+    void setupUi();
     ~gradeSelect();
 
 private:
