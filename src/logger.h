@@ -6,14 +6,16 @@
 #include <QDir>
 #include <unistd.h>
 
+#include "config.h"
+
 #define LOGGER_PATH "log/"
 #define LOGGER_FILE_EXT ".log.txt"
 #define LOGFILE(name) ((const char*) (LOGGER_PATH name LOGGER_FILE_EXT))
 
 class logger {
-
 public:
     logger();
+    static void regConfig(Config c);
     static void init();
     static void log(std::string message);
 };

@@ -9,7 +9,6 @@ namespace qbs {
         std::string name;
         std::string fullName;
         std::string cabinet;
-        std::string id;
         inline bool operator==(teacher &othr) {
             if (this == &othr) {
                 return false;

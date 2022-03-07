@@ -5,15 +5,15 @@ void md(const char* filename) {
         QDir().mkdir(filename);
     }
 }
-QFile of(const char* fn) {
+bool af(const char* fn) {
     if( access( fn, F_OK ) == 0 ) {
         QFile f(fn);
-        if (f.open(QIODevice::WriteOnly | QIODevice::Append)) {
-            return f;
+        if (f.open(QIODevice::ReadWrite | QIODevice::Append)) {
+            return true;
         }
-        return null;
+        return false;
     } else {
-        // file doesn't exist
+        return true;
     }
 }
 
@@ -22,6 +22,7 @@ logger::logger() {
 }
 
 void logger::init() {
-    md("log");
+}
 
+void logger::regConfig(Config c) {
 }

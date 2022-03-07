@@ -9,9 +9,13 @@
 #include <sys/stat.h>
 #include <QFile>
 
-#define p std::cout
-#define n std::endl
 #define print(something) std::cout << something << std::endl
+
+const std::map<const char*, const char*> configDefaults = {
+    // key, defaultValue
+    {"config/logpath", "log"},
+    {"config/no-warnings", "false"}
+};
 
 inline std::string fred(std::string path) {
     std::ifstream f(path);
@@ -53,35 +57,51 @@ YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
         return file;
     }
     auto path = split(ofWhat, "/");
+    if (path.size() == 1) {
+        #define P file[path[0]]
+        if (P.IsDefined()) {
+            if (P["external"].IsDefined() && !P["external"].IsMap()) {
+                if (P["external"].as<std::string>() == "config.yml") {
+                    P["external_error"] = "Cannot import the same file!";
+                }
+                else if (P["external"].IsSequence()) {
+                    std::vector<std::string> pth = P["external"].as<std::vector<std::string>>();
+                    std::string f;
+                    std::stringstream nex;
+                    for (auto p = pth.begin(); p != pth.end(); ++p) {
+                        if (fexist(*p)) {
+                            f += fred(*p);
+                            f += "\n";
+                        }
+                        nex << *p << ", ";
+                    }
+                    if (nex.str().size()) {
+                        std::stringstream msg("Некоторые файлы указанные в external не существуют: ");
+                        msg << nex.str();
+                        P["external_error"] = msg.str();
+                    }
+                    exists = true;
+                    return YAML::Load(f);
+                }
+                if (fexist(P["external"].as<std::string>())) {
+                    std::stringstream msg("Файл ");
+                    msg << P["external"].as<std::string>() << " не существует.";
+                    P["external_error"] = msg.str();
+                }
+                exists = true;
+                return YAML::LoadFile(P["external"].as<std::string>());
+            }
+            exists = true;
+            return P;
+        }
+        exists = false;
+        return YAML::Node();
+    } //if size 1
     YAML::Node fst = file[path[0]];
 
     for (auto i = path.begin() + 1; i != path.end(); ++i) {
 
         if (fst.IsMap()) {
-            if (fst["external"].IsDefined()) {
-                std::string ext = "(null)";
-                std::vector<std::string> extv;
-                if (fst["external"].IsMap()) {
-                    fst.remove("external");
-                }
-                try {extv = fst["external"].as<std::vector<std::string>>();}
-                catch (std::exception) {
-                    ext = fst["external"].as<std::string>();
-                }
-
-                if (ext == "(null)") {
-                    std::string node_txt;
-                    for (auto i = extv.begin(); i!= extv.end(); ++i) {
-                        if (fexist(*i)) {
-                            node_txt.append(fred(*i));
-                            node_txt.append("\n");
-                        }
-                    }
-                    fst = YAML::Load(node_txt);
-                } else {
-                    fst = YAML::LoadFile(ext);
-                }
-            }
             if (fst[i->c_str()].IsMap()) {
                 if (i->size() >= 1) {
                     fst = fst[i->c_str()];
@@ -90,12 +110,12 @@ YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
                 exists = true;
                 return fst[i->c_str()];
             }
-        }
+        } // if map
 
-    }// for
+    } // for loop
     exists = false;
     return YAML::Node(0);
-}
+} // config::getnode
 
 
 YAML::Node Config::getNode(std::string ofWhat) {
@@ -106,11 +126,11 @@ YAML::Node Config::getNode(std::string ofWhat) {
 std::string Config::get(std::string what) {
     bool exists;
     auto node = this->getNode(what, exists);
-    if (exists) {
+    if (exists && !node.IsMap()) {
         std::stringstream strs;
         strs << node;
         return strs.str();
-    } // else {
+    }
     return "(null)";
 }
 
@@ -119,17 +139,6 @@ bool Config::exists(std::string what) {
 }
 
 std::map<std::string, qbs::teacher> Config::loadTeachers() {
-    auto teachersYML = file["teachers"];
-    std::map<std::string, qbs::teacher> mp;
-    #define external teachersYML["external"]
-
-    if (external.IsDefined() && !external.IsNull() && !external.IsMap()) {
-        print("Loading external teachers from " << external.as<std::string>());
-    }
-
-    for (auto t = teachersYML.begin(); t != teachersYML.end(); ++t) {
-        try {mp.insert({t->first.as<std::string>(), t->second.as<qbs::teacher>()});}
-        catch (std::exception) {}
-    }
-    return mp;
+    auto tyml = this->getNode("teachers").as<std::map<std::string, qbs::teacher>>();
+    return tyml;
 }
