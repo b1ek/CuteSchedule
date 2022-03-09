@@ -7,6 +7,8 @@
 #include <QStyle>
 #include <QString>
 #include <QSignalMapper>
+#include <QGridLayout>
+
 #include <iostream>
 
 #include "scheduleObjects/all.h"
@@ -23,9 +25,7 @@ public:
     explicit gradeSelect(QWidget *parent = nullptr);
     void setupUi();
     ~gradeSelect();
-
-private slots:
-    void handle_bclick();
+    void handle_b(std::string id);
 
 private:
     Ui::gradeSelect *ui;
