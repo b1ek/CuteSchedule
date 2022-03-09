@@ -11,7 +11,7 @@ gradeSelect::gradeSelect(QWidget *parent) :
     std::map<std::string, qbs::grade> gr = qbs::grade::allGrades;
     QGridLayout *lay = new QGridLayout();
     for (auto i = gr.begin(); i != gr.end(); ++i) {
-        QLabel *lbl = new QLabel(i->first.c_str());
+        QPushButton *lbl = new QPushButton(i->first.c_str());
         if (col >= 6) {
             col = 0;
             row++;
@@ -19,12 +19,20 @@ gradeSelect::gradeSelect(QWidget *parent) :
         if (row <= 5) {
             lbl->setText(i->first.c_str());
             lay->addWidget(lbl, row, col);
+            // "QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}"
+            lbl->setStyleSheet("QPushButton {min    -width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}");
+            connect(lbl, SIGNAL(clicked()), this, SLOT(handle_bclick()));
+
             lbl->show();
         }
     }
     setLayout(lay);
     ui->setupUi(this);
 }
+
+void handle_bclick() {
+}
+
 void gradeSelect::setupUi() {
     ui->setupUi(this);
 }

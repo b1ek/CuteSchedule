@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QStyle>
+#include <QString>
+#include <QSignalMapper>
+#include <iostream>
 
 #include "scheduleObjects/all.h"
 
@@ -19,6 +23,9 @@ public:
     explicit gradeSelect(QWidget *parent = nullptr);
     void setupUi();
     ~gradeSelect();
+
+private slots:
+    void handle_bclick();
 
 private:
     Ui::gradeSelect *ui;
