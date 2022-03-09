@@ -1,9 +1,10 @@
 #define LOGGER_DISABLED
 
 #include "gui.h"
+#include "fakeloader.h"
+
 #include "config.h"
-#include "scheduleObjects/grade.h"
-#include "scheduleObjects/teacher.h"
+#include "scheduleObjects/all.h"
 #include "logger.h"
 
 #include <windows.h>
@@ -11,12 +12,15 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QMessageBox>
+#include <QStyleFactory>
 
 #define p std::cout
 #define n std::endl
 #define print(something) std::cout << something << std::endl
 #define debug(something) qDebug() << something
-//#define RUN_APP
+#define RUN_APP
+#define NO_LOAD
 
 int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "Russian");
@@ -41,9 +45,10 @@ int main(int argc, char *argv[]) {
     Config c;
     logger::regConfig(c);
     logger::init();
+    logger::log("Program launched");
+    fakeloader fk;
+    fk.show();
 
-    gui w;
-    w.show();
     return app.exec();
     #endif
 
@@ -59,7 +64,8 @@ int main(int argc, char *argv[]) {
             }
         }
     }*/
-    Config c;
+
+
 
     return 0;
 }

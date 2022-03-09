@@ -15,13 +15,6 @@ gui::gui(QWidget *parent)
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
     addAction(quitAction);
 
-    std::cout << "Is it working?" << std::endl;
-    //ui->buttonLeft->setEnabled(true);
-
-    connect(ui->buttonLeft, SIGNAL(clicked()), this, SLOT(on_buttonLeft_pressed()));
-
-    //ui->peace->setStyle()
-
     ui->setupUi(this);
 
 }
@@ -35,12 +28,8 @@ void gui::on_buttonLeft_pressed() {
 
     std::cout << "Pressed left button" << std::endl;
 }
-void gui::on_buttonRight_clicked() {
-    std::cout << "Pressed right button" << std::endl;
-}
 
-gui::~gui()
-{
+gui::~gui() {
     delete ui;
 }
 

@@ -34,18 +34,12 @@ std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
     this->file = YAML::LoadFile("config.yml");
     bool exists;
-    auto a = this->getNode("teachers", exists)
+    qbs::teacher::allTeachers = this->getNode("teachers", exists)
             .as<std::map<std::string, qbs::teacher>>();
-    qbs::teacher::allTeachers = a;
-
-    auto b = this->getNode("lessons", exists)
+    qbs::lesson::allLessons = this->getNode("lessons", exists)
             .as<std::map<std::string, qbs::lesson>>();
-    qbs::lesson::allLessons = b;
-
-    auto c = this->getNode("grades", exists)
+    qbs::grade::allGrades = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
-    qbs::grade::allGrades = c;
-
 }
 
 void Config::reload() {

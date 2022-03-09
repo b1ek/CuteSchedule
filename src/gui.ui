@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>762</height>
+    <height>778</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,18 @@
   <widget class="QWidget" name="centralwidget">
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    border: 1px solid qlineargradient(spread:pad, x1:0.994, y1:0, x2:1, y2:1, stop:0 rgba(217, 217, 217, 255), stop:0.198864 rgba(151, 151, 151, 255));
+
+    border-radius: 6px;
+    min-width: 80px;
+    background-color: #f3f3f3;
+
+    max-height: 256px;
+    max-width: 512px;
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -210,6 +222,12 @@
              </property>
              <item>
               <widget class="QWidget" name="mainMenu" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>16</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -237,12 +255,9 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="buttonRight">
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
+                 <widget class="QPushButton" name="pushButton">
                   <property name="text">
-                   <string>Выйти</string>
+                   <string>Учителя</string>
                   </property>
                  </widget>
                 </item>
@@ -307,7 +322,8 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>8</pointsize>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">

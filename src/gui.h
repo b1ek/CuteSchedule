@@ -28,8 +28,6 @@ private slots:
     void setTitle(QString text);
     void on_buttonLeft_pressed();
 
-    void on_buttonRight_clicked();
-
 private:
     Ui::gui *ui;
     gradeSelect *selectWidget;
