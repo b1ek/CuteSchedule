@@ -32,14 +32,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    YAML::Emitter out;
-    out << "Hello, World!";
-    std::cout << "Here's the output YAML:\n" << out.c_str() << std::endl; // prints "Hello, World!"
-
     QFile res(":/styles");
     res.open(QIODevice::ReadOnly | QIODevice::Text);
     #define styles res.readAll().toStdString().c_str()
     app.setStyleSheet(styles);
+
+    Config c;
+    logger::regConfig(c);
+    logger::init();
 
     gui w;
     w.show();
@@ -58,10 +58,6 @@ int main(int argc, char *argv[]) {
             }
         }
     }*/
-    Config c;
-    logger::regConfig(c);
-    logger::init();
-    logger::log("Program launched", L_INF);
 
     return 0;
 }

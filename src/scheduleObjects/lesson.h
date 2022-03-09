@@ -14,7 +14,8 @@ namespace qbs {
 }
 
 namespace YAML {
-template<> struct convert<qbs::lesson> {
+template<>
+struct convert<qbs::lesson> {
     static Node encode(const qbs::lesson& rhs)   {
         Node n;
         n[0] = rhs.name;

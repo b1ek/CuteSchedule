@@ -8,9 +8,9 @@ gradeSelect::gradeSelect(QWidget *parent) :
 }
 void gradeSelect::setupUi() {
     ui->setupUi(this);
+    //ui->qMain->layout()->addWidget()
 }
 
-gradeSelect::~gradeSelect()
-{
+gradeSelect::~gradeSelect() {
     delete ui;
 }

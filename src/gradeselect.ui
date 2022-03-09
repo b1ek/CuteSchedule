@@ -24,7 +24,7 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>16</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -32,23 +32,32 @@
    <item>
     <widget class="QWidget" name="main" native="true">
      <property name="styleSheet">
-      <string notr="true">#main {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 0, 0, 255), stop:0.479904 rgba(255, 0, 0, 255), stop:0.522685 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
+      <string notr="true"/>
      </property>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>180</y>
-        <width>75</width>
-        <height>24</height>
-       </rect>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>32</number>
       </property>
-      <property name="text">
-       <string>PushButton</string>
+      <property name="topMargin">
+       <number>32</number>
       </property>
-     </widget>
+      <property name="rightMargin">
+       <number>32</number>
+      </property>
+      <property name="bottomMargin">
+       <number>32</number>
+      </property>
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
