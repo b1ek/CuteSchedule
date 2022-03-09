@@ -1,13 +1,5 @@
 #include "config.h"
-#include "errors.h"
-#include "noGui/console.h"
 
-#include <sstream>
-#include <fstream>
-#include <codecvt>
-#include <locale>
-#include <sys/stat.h>
-#include <QFile>
 
 #define print(something) std::cout << something << std::endl
 
@@ -38,11 +30,17 @@ std::vector<std::string> split (std::string s, std::string delimiter) {
 
 Config::Config() {
     this->file = YAML::LoadFile("config.yml");
+    bool exists;
+    auto tyml = this->getNode("teachers", exists);
+    qbs::teacher::allTeachers = tyml.as<std::map<std::string, qbs::teacher>>();
+    qbs::lesson::allLessons = this->getNode("lessons", exists).as<std::map<std::string, qbs::lesson>>();
+    qbs::grade::allGrades = this->getNode("grades", exists).as<std::map<std::string, qbs::grade>>();
+
 }
 
 void Config::reload() {
     file = YAML::LoadFile("config.yml");
-    qbs::allTeachers = loadTeachers();
+    qbs::teacher::allTeachers = loadTeachers();
 }
 
 YAML::Node Config::getNode(std::string ofWhat, bool& exists) {

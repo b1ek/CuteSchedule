@@ -8,6 +8,29 @@ namespace qbs {
     struct lesson {
         std::string name;
         teacher __teacher;
+        static std::map<std::string, lesson> allLessons;
+        static lesson Empty() {
+            return lesson();
+        }
+        lesson() {
+            name = "Not found";
+            __teacher = qbs::teacher::Empty();
+        }
+        lesson(std::string id) {
+            if (allLessons.count(id)) {
+                lesson l = allLessons[id];
+                name = l.name;
+                __teacher = l.__teacher;
+            }
+            name = "Not found";
+            __teacher = qbs::teacher::Empty();
+        }
+        lesson operator= (std::string id) {
+            if (allLessons.count(id)) {
+                return allLessons[id];
+            }
+            return lesson::Empty();
+        }
     };
     const char* l_namekey = "name";
     const char* l_tchrkey = "teacher";

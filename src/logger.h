@@ -1,3 +1,4 @@
+#ifndef LOGGER_DISABLED
 #ifndef LOGGER_H
 #define LOGGER_H
 
@@ -47,3 +48,4 @@ public:
 };
 
 #endif // LOGGER_H
+#endif // LOGGER_DISABLED

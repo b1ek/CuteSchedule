@@ -1,3 +1,4 @@
+#define LOGGER_DISABLED
 
 #include "gui.h"
 #include "config.h"
@@ -58,6 +59,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }*/
+    Config c;
 
     return 0;
 }

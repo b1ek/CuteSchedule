@@ -5,8 +5,15 @@
 #include <iostream>
 #include <string.h>
 #include <QMessageBox>
+#include <sstream>
+#include <fstream>
+#include <codecvt>
+#include <locale>
+#include <sys/stat.h>
+#include <QFile>
 
-#include "scheduleObjects/teacher.h"
+#include "errors.h"
+#include "scheduleObjects/all.h"
 
 class Config
 {

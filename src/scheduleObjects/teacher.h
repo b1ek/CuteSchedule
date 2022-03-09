@@ -4,8 +4,16 @@
 #include <string>
 #include "yaml.h"
 
+#define T_EMPTY   0b10000000
+#define T_CONSTR  0b01000000
+#define T_NODECNV 0b00100000
+#define T_SEARCHD 0b00010000
+
 namespace qbs {
     struct teacher {
+    private:
+        int meta;
+    public:
         std::string name;
         std::string fullName;
         std::string cabinet;
@@ -18,12 +26,30 @@ namespace qbs {
             othr.cabinet = this->cabinet;
             return true;
         }
-        /*teacher(std::string, std::string, std::string);
-        teacher() : name("(null)"), fullName("(null)"), cabinet("(null)") {
-        }*/
+        teacher() {
+            meta = T_CONSTR;
+        }
+        static std::map<std::string, qbs::teacher> allTeachers;
+        static teacher Empty() {
+            teacher t;
+            t.name = "(EMPTY_TEACHER)";
+            t.fullName = "(EMPTY_TEACHER)";
+            t.cabinet = "69(EMPTY_TEACHER)";
+            t.meta = T_EMPTY;
+            return t;
+        }
+
+        teacher operator= (std::string id) {
+            if (allTeachers.count(id)) {
+                teacher t = allTeachers[id];
+                t.meta |= T_SEARCHD;
+                return t;
+            }
+            return teacher::Empty();
+        }
     };
-    static std::map<std::string, qbs::teacher> allTeachers;
-} // namespace BSchedule
+
+} // namesp. qbs
 
 namespace YAML {
 template<>

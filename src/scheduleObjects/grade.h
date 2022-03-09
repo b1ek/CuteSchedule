@@ -18,6 +18,31 @@ namespace qbs {
             rhs.tchr = this->tchr;
             rhs.schedule = this->schedule;
         }
+        static std::map<std::string, grade> allGrades;
+        grade() {
+            name = "Not found";
+            cabinet = "Not found";
+            tchr = qbs::teacher::Empty();
+        }
+        grade(std::string id) {
+            if (allGrades.count(id)) {
+                grade g = allGrades[id];
+                this->name = g.name;
+                this->cabinet = g.cabinet;
+                this->tchr = g.tchr;
+                this->schedule = g.schedule;
+                return;
+            }
+            name = std::string("Not found id ") + id;
+            cabinet = std::string("Not found id ") + id;
+            tchr = qbs::teacher::Empty();
+        }
+        grade operator=(std::string id) {
+            if (allGrades.count(id)) {
+                return allGrades[id];
+            }
+            return grade();
+        }
     };
 }
 
@@ -48,8 +73,17 @@ struct convert<qbs::grade> {
         rhs.cabinet = n["cabinet"].as<std::string>();
         std::string tid = n["teacher"].as<std::string>();
 
-        if (qbs::allTeachers.count(tid)) {
-            rhs.tchr = qbs::allTeachers[tid];
+        if (qbs::teacher::allTeachers.count(tid)) {
+            rhs.tchr = tid;
+        }
+
+        auto rawsch = n["schedule"].as<std::vector<std::vector<std::string>>>();
+        std::vector<std::vector<std::pair<std::string, qbs::lesson>>> sch;
+        for (auto i = rawsch.begin(); i!=rawsch.end(); ++i) {
+            std::vector<std::pair<qbs::lesson, std::string>> l;
+            for (auto ii = i->begin(); ii != i->end(); ++ii) {
+                l.push_back(std::pair<qbs::lesson, std::string>(qbs::lesson(*ii), *ii));
+            }
         }
 
         return true;
