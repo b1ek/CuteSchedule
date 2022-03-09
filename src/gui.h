@@ -1,6 +1,7 @@
 #ifndef GUI_H
 #define GUI_H
 
+#include "gradeview.h"
 #include "gradeselect.h"
 
 #include <iostream>
@@ -27,9 +28,11 @@ public:
 private slots:
     void setTitle(QString text);
     void on_buttonLeft_pressed();
+    void receive_selected_grade(QString id);
 
 private:
     Ui::gui *ui;
     gradeSelect *selectWidget;
+    gradeView *gview;
 };
 #endif // GUI_H

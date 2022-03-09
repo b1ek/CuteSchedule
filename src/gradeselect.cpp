@@ -21,7 +21,7 @@ gradeSelect::gradeSelect(QWidget *parent) :
             lay->addWidget(lbl, row, col);
             // "QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}"
             lbl->setStyleSheet("QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}");
-            connect(lbl, &QPushButton::clicked, this, [=](){this->handle_b(dynamic_cast<QPushButton*>(sender())->text().toStdString());});
+            connect(lbl, &QPushButton::clicked, this, [=](){this->handle_b(dynamic_cast<QPushButton*>(sender())->text());});
 
             lbl->show();
         }
@@ -30,7 +30,8 @@ gradeSelect::gradeSelect(QWidget *parent) :
     ui->setupUi(this);
 }
 
-void gradeSelect::handle_b(std::string id) {
+void gradeSelect::handle_b(QString id) {
+    emit send_selected(id);
 }
 
 void gradeSelect::setupUi() {

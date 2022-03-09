@@ -12,20 +12,22 @@
 #include <iostream>
 
 #include "scheduleObjects/all.h"
+#include "gui.h"
 
 namespace Ui {
 class gradeSelect;
 }
 
-class gradeSelect : public QWidget
-{
+class gradeSelect : public QWidget {
     Q_OBJECT
-
 public:
     explicit gradeSelect(QWidget *parent = nullptr);
     void setupUi();
     ~gradeSelect();
-    void handle_b(std::string id);
+    void handle_b(QString id);
+
+signals:
+    void send_selected(QString id);
 
 private:
     Ui::gradeSelect *ui;

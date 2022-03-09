@@ -24,11 +24,22 @@ void gui::on_buttonLeft_pressed() {
     this->selectWidget = new gradeSelect(ui->menu);
     this->selectWidget->setLayout(ui->menu->layout());
     this->selectWidget->show();
-
+    connect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
 }
 
 gui::~gui() {
     delete ui;
+}
+
+void gui::receive_selected_grade(QString id) {
+    this->selectWidget->close();
+    disconnect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
+    delete selectWidget;
+
+    this->gview = new gradeView();
+    this->gview->setID(id);
+    this->gview->setLayout(ui->menu->layout());
+    this->gview->show();
 }
 
 
