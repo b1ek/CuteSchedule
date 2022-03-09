@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QLabel>
+
+#include "scheduleObjects/all.h"
 
 namespace Ui {
 class gradeSelect;

@@ -16,7 +16,6 @@ gui::gui(QWidget *parent)
     addAction(quitAction);
 
     ui->setupUi(this);
-
 }
 
 void gui::on_buttonLeft_pressed() {
@@ -26,7 +25,6 @@ void gui::on_buttonLeft_pressed() {
     this->selectWidget->setLayout(ui->menu->layout());
     this->selectWidget->show();
 
-    std::cout << "Pressed left button" << std::endl;
 }
 
 gui::~gui() {
