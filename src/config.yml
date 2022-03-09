@@ -10,7 +10,7 @@ config:
         # По умолчанию протокол задан на SMTP,
         # но вы можете изменить на IMAP или POP3
         # protocol: SMTP
-        server-ip: smtp.yandex.ru
+        ip: smtp.yandex.ru
         name: John Doe
         username: john.doe # john.doe@yandex.ru
         password: 1234
@@ -55,7 +55,7 @@ teachers:
     zd1: [З. Д. Александрович, Зинин Данил Александрович, .]
 
 
-classes:
+lessons:
     ru1-9a:
         teacher: at1
         name: Русский язык

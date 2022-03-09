@@ -40,7 +40,7 @@ namespace qbs {
 
 #define l_namekey "name"
 #define l_tchrkey "teacher"
-#define l_classkey "classes"
+#define l_classkey "cabinet"
 
 namespace YAML {
 template<>
