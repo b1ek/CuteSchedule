@@ -14,6 +14,7 @@ fakeloader::fakeloader(QWidget *parent) :
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
     ui->setupUi(this);
+    Sleep(750);
 }
 
 fakeloader::~fakeloader() {
@@ -31,7 +32,6 @@ void fakeloader::launchApp() {
 
 bool launch = false;
 void fakeloader::update() {
-#ifdef NO_LOAD
     if (timer_c <= 20) {
         timer->setInterval(randint(150));
         ui->progressBar->setValue(timer_c);
@@ -65,7 +65,4 @@ void fakeloader::update() {
     if (launch) {
         fakeloader::launchApp();
     }
-#else
-    fakeloader::launchApp();
-#endif
 }
