@@ -34,16 +34,24 @@ struct convert<qbs::teacher> {
 
     static Node encode (const qbs::teacher& rhs) {
         Node n;
-        n[nname] = (rhs.name);
-        n[nfname] = (rhs.fullName);
-        n[ncabinet] = (rhs.cabinet);
+        n[0] = rhs.name;
+        n[1] = rhs.fullName;
+        n[2] = rhs.cabinet;
         return n;
     }
     static bool decode(const Node& n, qbs::teacher& rhs) {
-        rhs.name = n[nname].as<std::string>();
-        rhs.fullName = n[nfname].as<std::string>();
-        rhs.cabinet = n[ncabinet].as<std::string>();
-        return true;
+        if (n.IsMap()) {
+            rhs.name = n[nname].as<std::string>();
+            rhs.fullName = n[nfname].as<std::string>();
+            rhs.cabinet = n[ncabinet].as<std::string>();
+            return true;
+        } else if (n.IsSequence() && n.size() >= 3) {
+            rhs.name = n[0].as<std::string>();
+            rhs.fullName = n[1].as<std::string>();
+            rhs.cabinet = n[2].as<std::string>();
+            return true;
+        }
+        return false;
     }
 
 #undef nname

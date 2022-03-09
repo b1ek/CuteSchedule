@@ -37,24 +37,26 @@ config:
 #         fullName: John Doe
 #         cabinet: 5c
 # Тег external работает со всеми другими списками, даже так:
+#
 # teachers:
 #     jd1:
 #         external: teacher-jd1.yml
 
 teachers:
-    external: teachers.yml
-    jd1:
-        name: "J. Doe"
-        fullName: "John Doe"
-        cabinet: "5"
-    jd2:
-        name: "J. Doe"
-        fullName: "John Doe"
-        cabinet: "6"
-
+    ta1: [Татьяна Александровна, Антонова Татьяна Александровна, 6]
 
 classes:
     rl1:
-        teacher: jd1
+        teacher: ta1
         name: Русский язык
         cabinet: 9
+
+grades:
+    9A:
+        name: 9A
+        cabinet: 9
+        teacher: ta1
+        schedule: [
+            [rl1, en1, sh2],
+            []
+        ]

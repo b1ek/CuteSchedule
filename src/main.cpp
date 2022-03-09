@@ -1,7 +1,9 @@
 
 #include "gui.h"
 #include "config.h"
+#include "scheduleObjects/grade.h"
 #include "scheduleObjects/teacher.h"
+#include "logger.h"
 
 #include <windows.h>
 #include <yaml-cpp/yaml.h>
@@ -57,7 +59,9 @@ int main(int argc, char *argv[]) {
         }
     }*/
     Config c;
-    qbs::allTeachers = c.loadTeachers();
+    logger::regConfig(c);
+    logger::init();
+    logger::log("Program launched", L_INF);
 
     return 0;
 }

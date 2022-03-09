@@ -11,12 +11,6 @@
 
 #define print(something) std::cout << something << std::endl
 
-const std::map<const char*, const char*> configDefaults = {
-    // key, defaultValue
-    {"config/logpath", "log"},
-    {"config/no-warnings", "false"}
-};
-
 inline std::string fred(std::string path) {
     std::ifstream f(path);
     return std::string((std::istreambuf_iterator<char>(f)), (std::istreambuf_iterator<char>()));
@@ -83,10 +77,12 @@ YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
                     exists = true;
                     return YAML::Load(f);
                 }
-                if (fexist(P["external"].as<std::string>())) {
+                if (!fexist(P["external"].as<std::string>())) {
                     std::stringstream msg("Файл ");
                     msg << P["external"].as<std::string>() << " не существует.";
                     P["external_error"] = msg.str();
+                    exists = false;
+                    return P;
                 }
                 exists = true;
                 return YAML::LoadFile(P["external"].as<std::string>());
@@ -117,12 +113,6 @@ YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
     return YAML::Node(0);
 } // config::getnode
 
-
-YAML::Node Config::getNode(std::string ofWhat) {
-    bool discard;
-    return this->getNode(ofWhat, discard);
-}
-
 std::string Config::get(std::string what) {
     bool exists;
     auto node = this->getNode(what, exists);
@@ -135,10 +125,16 @@ std::string Config::get(std::string what) {
 }
 
 bool Config::exists(std::string what) {
-    return get(what) != "(null)";
+    bool exists;
+    this->getNode(what, exists);
+    return exists;
 }
 
 std::map<std::string, qbs::teacher> Config::loadTeachers() {
-    auto tyml = this->getNode("teachers").as<std::map<std::string, qbs::teacher>>();
-    return tyml;
+    bool exists;
+    auto tyml = this->getNode("teachers", exists);
+    if (exists) {
+        return tyml.as<std::map<std::string, qbs::teacher>>();
+    }
+    exit(NO_TEACHER_SPECIFIED);
 }
