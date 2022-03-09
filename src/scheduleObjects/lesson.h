@@ -35,6 +35,12 @@ namespace qbs {
             }
             return lesson::Empty();
         }
+        static lesson find(std::string id) {
+            if (allLessons.count(id)) {
+                return allLessons[id];
+            }
+            return lesson::Empty();
+        }
     };
 }
 

@@ -76,13 +76,16 @@ struct convert<qbs::grade> {
         rhs.tchr = qbs::teacher::find(tid);
 
         auto rawsch = n["schedule"].as<std::vector<std::vector<std::string>>>();
-        std::vector<std::vector<std::pair<std::string, qbs::lesson>>> sch;
+        std::vector<std::vector<std::pair<qbs::lesson, std::string>>> sch;
+        sch.reserve(rawsch.size() + 1);
         for (auto i = rawsch.begin(); i!=rawsch.end(); ++i) {
             std::vector<std::pair<qbs::lesson, std::string>> l;
             for (auto ii = i->begin(); ii != i->end(); ++ii) {
-                l.push_back(std::pair<qbs::lesson, std::string>(qbs::lesson(*ii), *ii));
+                l.push_back(std::pair<qbs::lesson, std::string>(qbs::lesson::find(*ii), *ii));
             }
+            sch.push_back(l);
         }
+        rhs.schedule = sch;
 
         return true;
     }

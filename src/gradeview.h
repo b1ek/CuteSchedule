@@ -2,6 +2,8 @@
 #define GRADEVIEW_H
 
 #include <QWidget>
+#include <QStyleFactory>
+#include <QAbstractTableModel>
 #include "scheduleObjects/all.h"
 
 namespace Ui {
@@ -22,5 +24,6 @@ private:
     QString ID;
     qbs::grade g;
 };
+
 
 #endif // GRADEVIEW_H
