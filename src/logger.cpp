@@ -107,6 +107,7 @@ std::string getLogDate() {
 }
 
 std::ofstream logger::open_stream() {
+#ifndef LOGGER_DISABLED
     md((std::string("log/") + getFolderDate()).c_str());
 
     std::string p = blek__getCD() + "/log/" + getFolderDate() + "/" + getFileDate() + "-ScheduleLog.txt";
@@ -115,9 +116,13 @@ std::ofstream logger::open_stream() {
     std::ofstream f;
     f.open(p);
     return f;
+#else
+    return std::ofstream()
+#endif
 }
 
 void logger::write(std::string message) {
+#ifndef LOGGER_DISABLED
     if ((logger::config & L_SINGLESTREAM) == L_SINGLESTREAM) {
         if (!logger::stream_opened) {
             logger::out = logger::open_stream();
@@ -128,6 +133,7 @@ void logger::write(std::string message) {
     auto f = logger::open_stream();
     f << message;
     f.close();
+#endif
 }
 
 void logger::regConfig(Config c) {
@@ -136,6 +142,7 @@ void logger::regConfig(Config c) {
 }
 
 void logger::log(std::string message, char code) {
+#ifndef LOGGER_DISABLED
     if (code == L_INF) {
         logger::write(std::string("[INFO] ") + getLogDate() + ": " + message + "\n");
         return;
@@ -154,13 +161,13 @@ void logger::log(std::string message, char code) {
     }
     logger::write(std::string("[INFO] ") + getLogDate() + ": " + message + "\n");
     return;
-
+#endif
 }
 
 void logger::configure(unsigned char _config, bool overrideExistant) {
-    Sleep(5);
+    Sleep(5); // to make it look like the function is HUGE
     if (!overrideExistant) {
-        logger::config = _config ^ logger::config;
+        logger::config |= _config;
         return;
     }
     logger::config = _config;

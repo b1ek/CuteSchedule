@@ -43,20 +43,108 @@ config:
 #         external: teacher-jd1.yml
 
 teachers:
-    ta1: [Татьяна Александровна, Антонова Татьяна Александровна, 6]
+    at1: [А. Т. Александровна, Антонова Татьяна Александровна, 6]
+    tl1: [Т. Л. Дмитриевна, Точеная Любовь Дмитриевна, Каб. Директора]
+    mm1: [М. М. Борисович, Моисеев Максим Борисович, 11]
+    lt1: [Л. Т. Анатольевна, Лимонова Татьяна Анатольевна, 4]
+    ga1: [Г. А. Владимировна, Гориченко Анна Владимировна, 7]
+    vp1: [В. П. Владимировна, Волкова Полина Владимировна, Каб. Информатики]
+    sa1: [С. А. Михайловна, Семёнова Александра Михайловна, .]
+    kt1: [К. Т. Борисовна, Крета Татьяна Борисовна, .]
+    pl1: [П. Л. Андреевна, Прециниек Людмила Андреевна, .]
+    zd1: [З. Д. Александрович, Зинин Данил Александрович, .]
+
 
 classes:
-    rl1:
-        teacher: ta1
+    ru1-9a:
+        teacher: at1
         name: Русский язык
+        cabinet: 9
+
+    en1-9a:
+        teacher: tl1
+        name: Английский язык
+        cabinet: 9
+
+    ph1-9a:
+        teacher: mm1
+        name: Физика
+        cabinet: 9/11
+
+    hi1-9a:
+        teacher: lt2
+        name: История
+        cabinet: 9
+
+    al1-9a:
+        teacher: lt1
+        name: Алгебра
+        cabinet: 9
+
+    ch1-9a:
+        teacher: vp1
+        name: Химия
+        cabinet: 9
+
+    bi1-9a:
+        teacher: sa1
+        name: Биология
+        cabinet: 9
+
+    ge1-9a:
+        teacher: kt1
+        name: География
+        cabinet: 9
+
+    ge2-9a:
+        teacher: lt1
+        name: Геометрия
+        cabinet: 9
+
+    rr1-9a:
+        teacher: pl1
+        name: Родная русская Литература
+        cabinet: 9
+
+    li1-9a:
+        teacher: ta1
+        name: Литература
+        cabinet: 9
+
+    rr2-9a:
+        teacher: pl1
+        name: Родной Русский Язык
+        cabinet: 9
+
+    pa1-9a:
+        teacher: zd1
+        name: Физкультура
+        cabinet: Зал
+
+    ob1-9a:
+        teacher: kt1
+        name: Обществознание
+        cabinet: 9
+
+    it1-9a:
+        teacher: vp1
+        name: Информатика
+        cabinet: Каб. Информатики
+
+    ob2-9a:
+        teacher: sa1
+        name: ОБЖ
         cabinet: 9
 
 grades:
     9A:
         name: 9A
         cabinet: 9
-        teacher: ta1
+        teacher: at1
         schedule: [
-            [rl1, en1, sh2],
-            []
+            [en1-9a, ru1-9a, ph1-9a, hi1-9a, al1-9a, ch1-9a, bi1-9a],
+            [ge1-9a, ch1-9a, ge2-9a, ph1-9a, rr1-9a, bi1-9a, li1-9a],
+            [ph1-9a, hi1-9a, li1-9a, rr1-9a, rr2-9a, en1-9a, pa1-9a],
+            [pa1-9a, ob1-9a, ge1-9a, ru1-9a, li1-9a, ge2-9a],
+            [it1-9a, en1-9a, ob2-9a, ru1-9a, ch1-9a, al1-9a]
         ]

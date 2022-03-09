@@ -7,6 +7,7 @@
 
 namespace qbs {
     struct grade {
+        static std::map<std::string, grade> allGrades;
         std::string name;
         std::string cabinet;
         teacher tchr;
@@ -18,7 +19,6 @@ namespace qbs {
             rhs.tchr = this->tchr;
             rhs.schedule = this->schedule;
         }
-        static std::map<std::string, grade> allGrades;
         grade() {
             name = "Not found";
             cabinet = "Not found";

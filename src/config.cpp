@@ -28,13 +28,18 @@ std::vector<std::string> split (std::string s, std::string delimiter) {
    return res;
 }
 
+std::map<std::string, qbs::grade> qbs::grade::allGrades;
+std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
+std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
     this->file = YAML::LoadFile("config.yml");
     bool exists;
-    auto tyml = this->getNode("teachers", exists);
-    qbs::teacher::allTeachers = tyml.as<std::map<std::string, qbs::teacher>>();
-    qbs::lesson::allLessons = this->getNode("lessons", exists).as<std::map<std::string, qbs::lesson>>();
-    qbs::grade::allGrades = this->getNode("grades", exists).as<std::map<std::string, qbs::grade>>();
+    qbs::teacher::allTeachers = this->getNode("teachers", exists)
+            .as<std::map<std::string, qbs::teacher>>();
+    qbs::lesson::allLessons = this->getNode("classes", exists)
+            .as<std::map<std::string, qbs::lesson>>();
+    qbs::grade::allGrades = this->getNode("grades", exists)
+            .as<std::map<std::string, qbs::grade>>();
 
 }
 
