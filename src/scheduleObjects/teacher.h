@@ -39,13 +39,18 @@ namespace qbs {
             return t;
         }
 
-        teacher operator= (std::string id) {
+        static teacher find(std::string id) {
+            auto a = allTeachers.count(id);
             if (allTeachers.count(id)) {
                 teacher t = allTeachers[id];
                 t.meta |= T_SEARCHD;
                 return t;
             }
             return teacher::Empty();
+        }
+
+        teacher operator= (std::string id) {
+            return find(id);
         }
     };
 

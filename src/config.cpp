@@ -34,12 +34,17 @@ std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
     this->file = YAML::LoadFile("config.yml");
     bool exists;
-    qbs::teacher::allTeachers = this->getNode("teachers", exists)
+    auto a = this->getNode("teachers", exists)
             .as<std::map<std::string, qbs::teacher>>();
-    qbs::lesson::allLessons = this->getNode("lessons", exists)
+    qbs::teacher::allTeachers = a;
+
+    auto b = this->getNode("lessons", exists)
             .as<std::map<std::string, qbs::lesson>>();
-    qbs::grade::allGrades = this->getNode("grades", exists)
+    qbs::lesson::allLessons = b;
+
+    auto c = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
+    qbs::grade::allGrades = c;
 
 }
 
@@ -57,9 +62,6 @@ YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
     if (path.size() == 1) {
         #define P file[path[0]]
         if (P.IsDefined()) {
-            if (path[0] == "lessons") {
-                std::cout << file << std::endl;
-            }
             if (P["external"].IsDefined() && !P["external"].IsMap()) {
                 if (P["external"].as<std::string>() == "config.yml") {
                     P["external_error"] = "Cannot import the same file!";

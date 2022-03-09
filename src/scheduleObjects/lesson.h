@@ -56,12 +56,12 @@ struct convert<qbs::lesson> {
         if (n.IsScalar()) return false;
         if (n.IsMap()) {
             rhs.name = n[l_namekey].as<std::string>();
-            rhs.__teacher = n[l_tchrkey].as<std::string>();
+            rhs.__teacher = qbs::teacher::find(n[l_tchrkey].as<std::string>());
             rhs.cabinet = n[l_classkey].as<std::string>();
             return true;
         }
         rhs.name = n[0].as<std::string>();
-        rhs.__teacher = n[1].as<std::string>();
+        rhs.__teacher = qbs::teacher::find(n[1].as<std::string>());
         rhs.cabinet = n[2].as<std::string>();
         return false;
     }
