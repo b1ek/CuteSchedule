@@ -73,9 +73,7 @@ struct convert<qbs::grade> {
         rhs.cabinet = n["cabinet"].as<std::string>();
         std::string tid = n["teacher"].as<std::string>();
 
-        if (qbs::teacher::allTeachers.count(tid)) {
-            rhs.tchr = tid;
-        }
+        rhs.tchr = qbs::teacher::find(tid);
 
         auto rawsch = n["schedule"].as<std::vector<std::vector<std::string>>>();
         std::vector<std::vector<std::pair<std::string, qbs::lesson>>> sch;

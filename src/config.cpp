@@ -38,8 +38,9 @@ Config::Config() {
             .as<std::map<std::string, qbs::teacher>>();
     qbs::lesson::allLessons = this->getNode("lessons", exists)
             .as<std::map<std::string, qbs::lesson>>();
-    qbs::grade::allGrades = this->getNode("grades", exists)
+    auto a = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
+    qbs::grade::allGrades = a;
 }
 
 void Config::reload() {

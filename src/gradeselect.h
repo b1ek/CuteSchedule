@@ -12,14 +12,15 @@
 #include <iostream>
 
 #include "scheduleObjects/all.h"
-#include "gui.h"
 
 namespace Ui {
 class gradeSelect;
 }
 
-class gradeSelect : public QWidget {
+class gradeSelect : public QWidget
+{
     Q_OBJECT
+
 public:
     explicit gradeSelect(QWidget *parent = nullptr);
     void setupUi();

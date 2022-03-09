@@ -32,13 +32,13 @@ gui::~gui() {
 }
 
 void gui::receive_selected_grade(QString id) {
-    this->selectWidget->close();
+    this->selectWidget->hide();
     disconnect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
     delete selectWidget;
 
     this->gview = new gradeView();
-    this->gview->setID(id);
     this->gview->setLayout(ui->menu->layout());
+    this->gview->setID(id);
     this->gview->show();
 }
 
