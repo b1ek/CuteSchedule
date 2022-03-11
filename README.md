@@ -1,1 +1,1 @@
-![](dark_logo.png)
+![](dark_logo_gith.png)
