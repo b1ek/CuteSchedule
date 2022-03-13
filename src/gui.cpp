@@ -16,9 +16,10 @@ gui::gui(QWidget *parent)
     addAction(quitAction);
 
     ui->setupUi(this);
+    connect(ui->buttonLeft, SIGNAL(clicked()), this, SLOT(buttonLeft_pressed()));
 }
 
-void gui::on_buttonLeft_pressed() {
+void gui::buttonLeft_pressed() {
     ui->mainMenu->hide();
 
     this->selectWidget = new gradeSelect(ui->menu);
@@ -36,7 +37,7 @@ void gui::receive_selected_grade(QString id) {
     disconnect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
     delete selectWidget;
 
-    this->gview = new gradeView();
+    this->gview = new gradeView(ui->menu);
     this->gview->setLayout(ui->menu->layout());
     this->gview->setID(id);
     this->gview->show();

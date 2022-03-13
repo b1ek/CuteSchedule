@@ -27,8 +27,9 @@ public:
 
 private slots:
     void setTitle(QString text);
-    void on_buttonLeft_pressed();
+    void buttonLeft_pressed();
     void receive_selected_grade(QString id);
+
 
 private:
     Ui::gui *ui;
