@@ -15,13 +15,11 @@ jobs:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
 
     steps:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
-      with:
-        arch: win64_mingw81
 
     - uses: actions/checkout@v2
 
