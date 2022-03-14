@@ -9,7 +9,6 @@
 #include <QDir>
 #include <unistd.h>
 #include <fstream>
-#include <windows.h>
 #include <locale>
 #include <codecvt>
 #include <algorithm>

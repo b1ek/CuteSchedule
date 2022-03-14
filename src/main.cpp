@@ -7,7 +7,6 @@
 #include "scheduleObjects/all.h"
 #include "logger.h"
 
-#include <windows.h>
 #include <yaml-cpp/yaml.h>
 #include <QApplication>
 #include <QLocale>
@@ -25,7 +24,6 @@ const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail
 
 int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "Russian");
-    SetConsoleOutputCP(CP_UTF8);
     QApplication app(argc, argv);
     #ifdef RUN_APP
     QTranslator translator;

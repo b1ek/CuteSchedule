@@ -5,19 +5,15 @@
 #include <QTimer>
 #include <QRandomGenerator>
 #include <QStyleFactory>
-#include <QThread>
+
+#include <chrono>
+#include <thread>
 
 #include "errors.h"
 #include "gui.h"
 #include "logger.h"
 
 #define randint(max) QRandomGenerator::global()->generate() % max
-class Sleeper {
-public:
-    static void msleep(long ms) {QThread::msleep(ms);}
-};
-
-#define Sleep(ms) Sleeper::msleep(ms)
 
 namespace Ui {
 class fakeloader;

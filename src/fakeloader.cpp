@@ -1,6 +1,10 @@
 #include "fakeloader.h"
 #include "ui_fakeloader.h"
 
+void ssleep(long ms) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
 fakeloader::fakeloader(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::fakeloader)
@@ -14,7 +18,7 @@ fakeloader::fakeloader(QWidget *parent) :
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
     ui->setupUi(this);
-    Sleep(750);
+    ssleep(750);
 }
 
 fakeloader::~fakeloader() {
@@ -27,21 +31,21 @@ void fakeloader::launchApp() {
     timer->stop();
     this->close();
 
-    Sleep(250);
+    ssleep(250);
     logger::log("Loading config...");
     for (int i = 1; i >= 8; i++) {
-        Sleep(15);
+        ssleep(15);
         std::stringstream s;
         s << "Loading config... [" << i << "/8 chunks passed]";
         logger::log(s.str());
     }
     logger::log("Config loaded.");
-    Sleep(150);
+    ssleep(150);
     logger::log("Starting services...");
-    Sleep(5);
+    ssleep(5);
     logger::log("Nothing to start.");
     logger::log("Cleaning up...");
-    Sleep(250);
+    ssleep(250);
     logger::log("Done.");
     logger::log("Launching app...");
 
