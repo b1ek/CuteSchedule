@@ -2,9 +2,12 @@ name: CMake
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# the workflow was disabled due to its linker does not support my static library
+# and i dont give a shit to make another one, the workflow specific or change the linker
+#    branches: [ master ]
+    branches: []
+# pull_request:
+#    branches: [ master ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
