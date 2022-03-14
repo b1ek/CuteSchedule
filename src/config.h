@@ -15,8 +15,7 @@
 #include "errors.h"
 #include "scheduleObjects/all.h"
 
-class Config
-{
+class Config {
     YAML::Node file;
 public:
     Config();
@@ -25,7 +24,6 @@ public:
     std::string get(std::string what);
     YAML::Node getNode(std::string ofWhat, bool& exists);
     bool exists(std::string what);
-    std::map<std::string, qbs::teacher> loadTeachers();
 
 };
 

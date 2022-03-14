@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QKeySequence>
 #include <QFile>
+#include <QScreen>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class gui; }

@@ -25,9 +25,28 @@ fakeloader::~fakeloader() {
 
 void fakeloader::launchApp() {
     timer->stop();
+    this->close();
+
+    Sleep(250);
+    logger::log("Loading config...");
+    for (int i = 1; i >= 8; i++) {
+        Sleep(15);
+        std::stringstream s;
+        s << "Loading config... [" << i << "/8 chunks passed]";
+        logger::log(s.str());
+    }
+    logger::log("Config loaded.");
+    Sleep(150);
+    logger::log("Starting services...");
+    Sleep(5);
+    logger::log("Nothing to start.");
+    logger::log("Cleaning up...");
+    Sleep(250);
+    logger::log("Done.");
+    logger::log("Launching app...");
+
     g = new gui();
     g->show();
-    this->close();
 }
 
 bool launch = false;

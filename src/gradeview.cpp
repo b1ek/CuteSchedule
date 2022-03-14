@@ -18,20 +18,22 @@ void gradeView::setID(QString id) {
 
     QList<QString> weekdays = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суботта"};
     int wkdy = 0;
-    ui->sch->setRowCount(6);
-    ui->sch->setColumnCount(8);
+    ui->sch->setRowCount(8);
+    ui->sch->setColumnCount(6);
     ui->sch->verticalHeader()->setVisible(false);
     ui->sch->horizontalHeader()->setVisible(false);
 
     int i = 5;
     while (i != -1) {
-        ui->sch->setItem(i, 0, new QTableWidgetItem(weekdays[i]));
+        auto a = new QTableWidgetItem(weekdays[i]);
+        a->setFont(QFont("Segoe UI", -1, QFont::Bold, false));
+        ui->sch->setItem(0, i, a);
         i--;
     }
 
     for (auto i = g.schedule.begin(); i != g.schedule.end(); ++i) {
         for (auto ii = i->begin(); ii != i->end(); ++ii) {
-            ui->sch->setItem(i - g.schedule.begin(), ii - i->begin()+1, new QTableWidgetItem(ii->first.name.c_str()));
+            ui->sch->setItem(ii - i->begin()+1, i - g.schedule.begin(), new QTableWidgetItem(ii->first.name.c_str()));
         }
         wkdy++;
     }

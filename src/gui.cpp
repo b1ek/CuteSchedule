@@ -5,12 +5,14 @@ gui::gui(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::gui)
 {
-    //this->setWindowState(Qt::WindowFullScreen);
+    this->setWindowState(Qt::WindowFullScreen);
 
     QAction *quitAction = new QAction(tr("E&xit"), this);
     QList<QKeySequence> shortcuts;
     shortcuts << QKeySequence("Ctrl+Q") << QKeySequence("Escape");
     quitAction->setShortcuts(shortcuts);
+
+    //QRect rec = QApplication::desktop()->screenGeometry();
 
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
     addAction(quitAction);

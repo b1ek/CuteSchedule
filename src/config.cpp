@@ -1,5 +1,5 @@
 #include "config.h"
-
+#include "logger.h"
 
 #define print(something) std::cout << something << std::endl
 
@@ -32,20 +32,34 @@ std::map<std::string, qbs::grade> qbs::grade::allGrades;
 std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
 std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
+    if (fexist("config.yml")) {
+        logger::log("No config file found, created a default one");
+    }
+
     this->file = YAML::LoadFile("config.yml");
     bool exists;
     qbs::teacher::allTeachers = this->getNode("teachers", exists)
             .as<std::map<std::string, qbs::teacher>>();
     qbs::lesson::allLessons = this->getNode("lessons", exists)
             .as<std::map<std::string, qbs::lesson>>();
-    auto a = this->getNode("grades", exists)
+    qbs::grade::allGrades = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
-    qbs::grade::allGrades = a;
+
+    logger::log("Loaded config");
 }
 
 void Config::reload() {
     file = YAML::LoadFile("config.yml");
-    qbs::teacher::allTeachers = loadTeachers();
+
+    bool exists;
+    qbs::teacher::allTeachers = this->getNode("teachers", exists)
+            .as<std::map<std::string, qbs::teacher>>();
+    qbs::lesson::allLessons = this->getNode("lessons", exists)
+            .as<std::map<std::string, qbs::lesson>>();
+    qbs::grade::allGrades = this->getNode("grades", exists)
+            .as<std::map<std::string, qbs::grade>>();
+
+    logger::log("Reloaded config");
 }
 
 YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
@@ -131,13 +145,4 @@ bool Config::exists(std::string what) {
     bool exists;
     this->getNode(what, exists);
     return exists;
-}
-
-std::map<std::string, qbs::teacher> Config::loadTeachers() {
-    bool exists;
-    auto tyml = this->getNode("teachers", exists);
-    if (exists) {
-        return tyml.as<std::map<std::string, qbs::teacher>>();
-    }
-    exit(NO_TEACHER_SPECIFIED);
 }

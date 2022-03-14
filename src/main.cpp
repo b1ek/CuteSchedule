@@ -20,7 +20,6 @@
 #define print(something) std::cout << something << std::endl
 #define debug(something) qDebug() << something
 #define RUN_APP
-#define NOLOAD
 
 const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail.com / creeperywime@gmail.com\ngithub@b1ek";
 
@@ -45,9 +44,10 @@ int main(int argc, char *argv[]) {
     app.setStyleSheet(styles);
 
     Config c;
-    logger::regConfig(c);
     logger::init();
-    logger::log("Program launched");
+    logger::log("hii");;
+
+
 #ifndef NOLOAD
     fakeloader fk;
     fk.show();
@@ -71,8 +71,6 @@ int main(int argc, char *argv[]) {
             }
         }
     }*/
-
-
 
     return 0;
 }
