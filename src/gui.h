@@ -30,7 +30,7 @@ private slots:
     void setTitle(QString text);
     void buttonLeft_pressed();
     void receive_selected_grade(QString id);
-
+    void back();
 
 private:
     Ui::gui *ui;

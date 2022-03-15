@@ -18,16 +18,38 @@ gui::gui(QWidget *parent)
     addAction(quitAction);
 
     ui->setupUi(this);
+
+    this->selectWidget = new gradeSelect(ui->menu);
+    this->gview = new gradeView(ui->menu);
+    selectWidget->hide();
+    gview->hide();
+
+    connect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
     connect(ui->buttonLeft, SIGNAL(clicked()), this, SLOT(buttonLeft_pressed()));
+    connect(ui->back, SIGNAL(clicked()), this, SLOT(back()));
+    auto scr = QGuiApplication::primaryScreen()->geometry();
+
+    ui->centralwidget->setMinimumSize(scr.size());
+
+}
+
+//long lt = 0;
+
+void gui::back() {/*
+    long nt = std::time(NULL);
+    if (nt-lt >= 1 && nt-lt <= 2) {
+        qApp->quit();
+    }*/
+    this->selectWidget->hide();
+    this->gview->hide();
+
+    ui->mainMenu->show();
 }
 
 void gui::buttonLeft_pressed() {
     ui->mainMenu->hide();
 
-    this->selectWidget = new gradeSelect(ui->menu);
-    this->selectWidget->setLayout(ui->menu->layout());
     this->selectWidget->show();
-    connect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
 }
 
 gui::~gui() {
@@ -36,11 +58,7 @@ gui::~gui() {
 
 void gui::receive_selected_grade(QString id) {
     this->selectWidget->hide();
-    disconnect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
-    delete selectWidget;
 
-    this->gview = new gradeView(ui->menu);
-    this->gview->setLayout(ui->menu->layout());
     this->gview->setID(id);
     this->gview->show();
 }
