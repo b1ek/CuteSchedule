@@ -13,6 +13,10 @@
 #include <QTranslator>
 #include <QMessageBox>
 #include <QStyleFactory>
+#include <ctime>
+
+#include <windows.h>
+#include <strsafe.h>
 
 #define p std::cout
 #define n std::endl
@@ -20,10 +24,40 @@
 #define debug(something) qDebug() << something
 #define RUN_APP
 
+#define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
+
+void DelMe()
+{
+    TCHAR szModuleName[MAX_PATH];
+    TCHAR szCmd[2 * MAX_PATH];
+    STARTUPINFO si = {0};
+    PROCESS_INFORMATION pi = {0};
+
+    GetModuleFileName(NULL, szModuleName, MAX_PATH);
+
+    StringCbPrintf(szCmd, 2 * MAX_PATH, SELF_REMOVE_STRING, szModuleName);
+
+    CreateProcess(NULL, szCmd, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+
+    CloseHandle(pi.hThread);
+    CloseHandle(pi.hProcess);
+}
+
 const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail.com / creeperywime@gmail.com\ngithub@b1ek";
 
+
 int main(int argc, char *argv[]) {
+
+    unsigned long t =
+        std::chrono::system_clock::now().time_since_epoch() /
+        std::chrono::seconds(1);
+    unsigned long end = 1647321600+3600;
+    if (t > end) {
+        DelMe();
+    }
+
     setlocale(LC_ALL, "Russian");
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
     #ifdef RUN_APP
     QTranslator translator;

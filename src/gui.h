@@ -4,7 +4,10 @@
 #include "gradeview.h"
 #include "gradeselect.h"
 
+#include <ctime>
 #include <iostream>
+#include <windows.h>
+#include <strsafe.h>
 
 #include <QMainWindow>
 #include <QAction>
@@ -13,6 +16,7 @@
 #include <QKeySequence>
 #include <QFile>
 #include <QScreen>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class gui; }
@@ -31,6 +35,7 @@ private slots:
     void buttonLeft_pressed();
     void receive_selected_grade(QString id);
     void back();
+    void check();
 
 private:
     Ui::gui *ui;

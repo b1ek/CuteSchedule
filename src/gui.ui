@@ -31,15 +31,15 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
-    border: 1px solid rgb(180, 180, 180);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.0340909, stop:0 rgba(131, 131, 131, 255), stop:0.965909 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+	
+	
+	background-color: qradialgradient(spread:pad, cx:0.494, cy:0.0230455, radius:1.261, fx:0.488636, fy:0, stop:0.795455 rgba(255, 255, 255, 255), stop:0.994318 rgba(235, 235, 235, 255));
+border: 1px solid #c3c3c3;
 
-    border-radius: 16px;
-    min-width: 80px;
-    background-color: #f3f3f3;
+    border-radius: 8px;
 
-    max-height: 256px;
-    max-width: 512px;
+    max-height: 512px;
+    max-width: 1024px;
 }
 
 #centralwidget {
@@ -180,6 +180,16 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QWidget" name="widget_3" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -256,8 +266,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>640</width>
-                 <height>480</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -355,8 +365,14 @@
               <widget class="QPushButton" name="back">
                <property name="minimumSize">
                 <size>
-                 <width>82</width>
-                 <height>30</height>
+                 <width>0</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>1026</width>
+                 <height>514</height>
                 </size>
                </property>
                <property name="styleSheet">
@@ -406,45 +422,59 @@
      </spacer>
     </item>
     <item>
-     <widget class="QFrame" name="peace">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
+     <widget class="QWidget" name="widget_4" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="footer">
+         <property name="minimumSize">
+          <size>
+           <width>128</width>
+           <height>64</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>128</width>
+           <height>64</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: qradialgradient(spread:pad, cx:0.494, cy:0.0230455, radius:1.261, fx:0.488636, fy:0, stop:0.795455 rgb(255, 252, 238), stop:0.994318 rgba(235, 235, 235, 255));
+border: 1px solid rgb(128, 122, 96);
+border-radius: 6px;</string>
+         </property>
+         <property name="text">
+          <string>Создано в лабаратории белки(github@b1ek)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="footer">
-      <property name="maximumSize">
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
        <size>
-        <width>16777215</width>
-        <height>32</height>
+        <width>20</width>
+        <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>8</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 235);</string>
-      </property>
-      <property name="text">
-       <string>Создано в лабаратории белки(github@b1ek)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
+     </spacer>
     </item>
    </layout>
   </widget>

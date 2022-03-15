@@ -58,6 +58,13 @@ QProgressBar {
      <number>16</number>
     </property>
     <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Version 1.3.2 EXPERIMENTAL</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QProgressBar" name="progressBar">
       <property name="maximumSize">
        <size>
