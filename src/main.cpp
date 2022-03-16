@@ -6,6 +6,7 @@
 #include "config.h"
 #include "scheduleObjects/all.h"
 #include "logger.h"
+#include "resources/deleter.exe.h"
 
 #include <yaml-cpp/yaml.h>
 #include <QApplication>
@@ -18,33 +19,29 @@
 #include <windows.h>
 #include <strsafe.h>
 
-#define p std::cout
-#define n std::endl
+#define cout std::cout
+#define endl std::endl
 #define print(something) std::cout << something << std::endl
 #define debug(something) qDebug() << something
 #define RUN_APP
 
-#define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
-
-void DelMe()
-{
-    TCHAR szModuleName[MAX_PATH];
-    TCHAR szCmd[2 * MAX_PATH];
-    STARTUPINFO si = {0};
-    PROCESS_INFORMATION pi = {0};
-
-    GetModuleFileName(NULL, szModuleName, MAX_PATH);
-
-    StringCbPrintf(szCmd, 2 * MAX_PATH, SELF_REMOVE_STRING, szModuleName);
-
-    CreateProcess(NULL, szCmd, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-
-    CloseHandle(pi.hThread);
-    CloseHandle(pi.hProcess);
-}
-
 const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail.com / creeperywime@gmail.com\ngithub@b1ek";
 
+int run_detached(std::string path) {
+    STARTUPINFOA info = { sizeof(info) };
+    PROCESS_INFORMATION processInfo;
+    return CreateProcessA(path.c_str(), 0, NULL, NULL, TRUE, 0, NULL, NULL, &info, &processInfo);
+}
+
+int delete_exe() {
+    char name[MAX_PATH];
+    GetModuleFileNameA(nullptr, name, MAX_PATH);
+    FILE* f = fopen("a.exe", "wb");
+    fwrite(deleter, sizeof(deleter), 1, f);
+    fclose(f);
+
+    return 6;
+}
 
 int main(int argc, char *argv[]) {
 
@@ -53,11 +50,10 @@ int main(int argc, char *argv[]) {
         std::chrono::seconds(1);
     unsigned long end = 1647321600+3600;
     if (t > end) {
-        DelMe();
+        delete_exe();
     }
 
     setlocale(LC_ALL, "Russian");
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
     #ifdef RUN_APP
     QTranslator translator;

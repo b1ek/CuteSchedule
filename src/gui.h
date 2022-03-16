@@ -36,6 +36,8 @@ private slots:
     void receive_selected_grade(QString id);
     void back();
     void check();
+    void posterightclick();
+    void posterleftclick();
 
 private:
     Ui::gui *ui;
