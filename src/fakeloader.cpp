@@ -9,14 +9,31 @@ fakeloader::fakeloader(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::fakeloader)
 {
+    this->conf = Config();
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(1);
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
-    this->setWindowFlags(Qt::WindowStaysOnTopHint);
-    this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    ui->setupUi(this);
+    ssleep(750);
+}
+
+fakeloader::fakeloader(Config __conf) :
+    QMainWindow(nullptr),
+    ui(new Ui::fakeloader) {
+    this->conf = __conf;
+    timer_c = 0;
+    this->timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->start(1);
+    //this->setStyle(QStyleFactory::create("fusion"));
+    //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     ui->setupUi(this);
     ssleep(750);
 }
@@ -49,7 +66,7 @@ void fakeloader::launchApp() {
     logger::log("Done.");
     logger::log("Launching app...");
 
-    g = new gui();
+    g = new gui(conf);
     g->show();
 }
 

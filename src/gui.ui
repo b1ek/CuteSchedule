@@ -30,8 +30,9 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton {	
-	background-color: qradialgradient(spread:pad, cx:0.494, cy:0.0230455, radius:1.261, fx:0.488636, fy:0, stop:0.795455 rgba(255, 255, 255, 255), stop:0.994318 rgba(235, 235, 235, 255));
+    <string notr="true">QPushButton {
+	
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0, radius:1, fx:0.5, fy:0, stop:0.75 rgba(255, 255, 255, 255), stop:1 rgba(245, 245, 245, 255));
 	border: 1px outset #a0a0a0;
 
     border-radius: 6px;
@@ -41,17 +42,24 @@
 }
 
 #centralwidget {
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:0.949, stop:0 rgba(29, 101, 134, 255), stop:0.0681818 rgba(94, 168, 255, 255), stop:0.119318 rgba(163, 199, 242, 255), stop:0.215909 rgba(255, 253, 246, 255));
+	
+	
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.295455 rgba(255, 0, 0, 255), stop:0.329545 rgba(0, 0, 255, 255), stop:0.653409 rgba(0, 0, 255, 255), stop:0.659091 rgba(255, 255, 255, 255));
 }
 
 #poster1,
 #poster2 {
+		max-width: 432px;
+		min-width: 432px;
+		max-height: 640px;
+		min-height: 640px;
 		border: 1px solid #a0a0a0;
 		border-top-color: #b0b0b0;
 		border-left-color: #b0b0b0;
 		border-radius: 6px;
 		background-color: #FCFCFC;
-		background-image: url(&quot;:/noposter&quot;);
+		background-repeat: no-repeat;
+/*		background-image: url(&quot;:/noposter&quot;);*/
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -207,13 +215,36 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QWidget" name="poster1" native="true">
-         <property name="maximumSize">
+         <property name="minimumSize">
           <size>
-           <width>256</width>
-           <height>638</height>
+           <width>434</width>
+           <height>642</height>
           </size>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4"/>
+         <property name="maximumSize">
+          <size>
+           <width>434</width>
+           <height>642</height>
+          </size>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QWidget" name="p1warning" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>256</width>
+              <height>256</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>256</width>
+              <height>256</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -395,13 +426,36 @@
        </item>
        <item>
         <widget class="QWidget" name="poster2" native="true">
-         <property name="maximumSize">
+         <property name="minimumSize">
           <size>
-           <width>256</width>
-           <height>638</height>
+           <width>434</width>
+           <height>642</height>
           </size>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_5"/>
+         <property name="maximumSize">
+          <size>
+           <width>434</width>
+           <height>642</height>
+          </size>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QWidget" name="p2warning" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>256</width>
+              <height>256</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>256</width>
+              <height>256</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

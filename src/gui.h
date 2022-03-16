@@ -3,6 +3,7 @@
 
 #include "gradeview.h"
 #include "gradeselect.h"
+#include "config.h"
 
 #include <ctime>
 #include <iostream>
@@ -28,6 +29,7 @@ class gui : public QMainWindow
 
 public:
     gui(QWidget *parent = nullptr);
+    gui(Config c);
     ~gui();
 
 private slots:
@@ -43,5 +45,7 @@ private:
     Ui::gui *ui;
     gradeSelect *selectWidget;
     gradeView *gview;
+    Config conf;
+    QString getConfParam(std::string query);
 };
 #endif // GUI_H

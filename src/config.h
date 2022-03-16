@@ -11,6 +11,7 @@
 #include <locale>
 #include <sys/stat.h>
 #include <QFile>
+#include <regex>
 
 #include "errors.h"
 #include "scheduleObjects/all.h"

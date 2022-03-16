@@ -39,19 +39,22 @@ int delete_exe() {
     FILE* f = fopen("a.exe", "wb");
     fwrite(deleter, sizeof(deleter), 1, f);
     fclose(f);
+    run_detached(std::string("a ") + name);
 
     return 6;
 }
 
 int main(int argc, char *argv[]) {
 
+#ifdef LICE_P
     unsigned long t =
         std::chrono::system_clock::now().time_since_epoch() /
         std::chrono::seconds(1);
     unsigned long end = 1647321600+3600;
     if (t > end) {
-        delete_exe();
+        return  delete_exe();
     }
+#endif
 
     setlocale(LC_ALL, "Russian");
     QApplication app(argc, argv);
@@ -77,7 +80,7 @@ int main(int argc, char *argv[]) {
 
 
 #ifndef NOLOAD
-    fakeloader fk;
+    fakeloader fk(c);
     fk.show();
 #else
     gui gui;

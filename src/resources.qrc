@@ -5,4 +5,7 @@
         <file alias="peace">peace.png</file>
         <file alias="noposter">noposter.png</file>
     </qresource>
+    <qresource prefix="/load">
+        <file alias="splscr">splashscreen.png</file>
+    </qresource>
 </RCC>

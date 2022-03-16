@@ -12,6 +12,7 @@
 #include "errors.h"
 #include "gui.h"
 #include "logger.h"
+#include "config.h"
 
 #define randint(max) QRandomGenerator::global()->generate() % max
 
@@ -24,9 +25,11 @@ class fakeloader  : public QMainWindow {
     QTimer * timer;
     gui *g;
     int timer_c;
+    Config conf;
 
 public:
     explicit fakeloader(QWidget *parent = nullptr);
+    fakeloader(Config c);
     ~fakeloader();
     void launchApp();
 
