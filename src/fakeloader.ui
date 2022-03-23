@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>512</height>
+    <width>388</width>
+    <height>128</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>512</width>
-    <height>512</height>
+    <width>388</width>
+    <height>128</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>512</width>
-    <height>5125</height>
+    <width>388</width>
+    <height>128</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -38,24 +38,23 @@ QProgressBar {
 #centralwidget {
 		background-color: rgba(255, 255, 255, 0);
 		background-image: url(&quot;:/load/splscr&quot;);
-		border-radius: 16px;
-		border: 3px outline black;
+		border-radius: 8px;
 }
 QLabel {
-		color: white;
+		color: black;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
-     <width>512</width>
-     <height>512</height>
+     <width>388</width>
+     <height>128</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>512</width>
-     <height>512</height>
+     <width>388</width>
+     <height>128</height>
     </size>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -63,16 +62,16 @@ QLabel {
      <number>8</number>
     </property>
     <property name="leftMargin">
-     <number>16</number>
+     <number>8</number>
     </property>
     <property name="topMargin">
      <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>16</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>64</number>
+     <number>4</number>
     </property>
     <item>
      <spacer name="verticalSpacer">
@@ -97,37 +96,6 @@ QLabel {
       </property>
       <property name="text">
        <string>Version 1.3.2 EXPERIMENTAL</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QProgressBar" name="progressBar">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>8</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="value">
-       <number>51</number>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="textVisible">
-       <bool>true</bool>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>

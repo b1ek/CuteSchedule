@@ -1,6 +1,6 @@
 #ifndef FAKELOADER_H
 #define FAKELOADER_H
-
+#ifndef NOLOAD
 #include <QMainWindow>
 #include <QTimer>
 #include <QRandomGenerator>
@@ -39,5 +39,5 @@ private slots:
 private:
     Ui::fakeloader *ui;
 };
-
+#endif // NOLOAD
 #endif // FAKELOADER_H

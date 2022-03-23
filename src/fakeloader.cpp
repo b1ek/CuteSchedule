@@ -1,3 +1,4 @@
+#ifndef NOLOAD
 #include "fakeloader.h"
 #include "ui_fakeloader.h"
 
@@ -29,13 +30,13 @@ fakeloader::fakeloader(Config __conf) :
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1);
+    timer->start(randint(10000));
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    ssleep(1);
     ui->setupUi(this);
-    ssleep(750);
 }
 
 fakeloader::~fakeloader() {
@@ -71,7 +72,7 @@ void fakeloader::launchApp() {
 }
 
 bool launch = false;
-void fakeloader::update() {
+void fakeloader::update() {/*
     if (timer_c <= 20) {
         timer->setInterval(randint(150));
         ui->progressBar->setValue(timer_c);
@@ -104,5 +105,7 @@ void fakeloader::update() {
     }
     if (launch) {
         fakeloader::launchApp();
-    }
+    }*/
+    launchApp();
 }
+#endif // NOLOAD

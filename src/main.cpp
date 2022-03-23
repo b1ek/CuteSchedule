@@ -1,7 +1,9 @@
 #define LOGGER_DISABLED
 
 #include "gui.h"
+#ifndef NOLOAD
 #include "fakeloader.h"
+#endif
 
 #include "config.h"
 #include "scheduleObjects/all.h"
