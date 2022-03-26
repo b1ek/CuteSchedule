@@ -32,7 +32,7 @@ std::map<std::string, qbs::grade> qbs::grade::allGrades;
 std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
 std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
-    if (fexist("config.yml")) {
+    if (!fexist("config.yml")) {
         logger::log("No config file found, created a default one");
     }
 

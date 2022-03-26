@@ -21,7 +21,7 @@ gui::gui(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::gui)
 {
-    this->setWindowState(Qt::WindowFullScreen);
+    setWindowState(Qt::WindowFullScreen);
 
     QAction *quitAction = new QAction(tr("E&xit"), this);
     QList<QKeySequence> shortcuts;
@@ -70,6 +70,8 @@ gui::gui(QWidget *parent)
         ui->poster2->hide();
     }
 
+    buttonRight_press();
+    raise();
     show();
 }
 
@@ -115,6 +117,7 @@ void gui::check() {
 void gui::back() {
     this->selectWidget->hide();
     this->gview->hide();
+    this->tview->hide();
 
     ui->mainMenu->show();
 }

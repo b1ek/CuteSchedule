@@ -12,6 +12,7 @@
 #include <locale>
 #include <codecvt>
 #include <algorithm>
+#include <windows.h>
 
 #include <ctime>
 #include <iomanip>
@@ -31,10 +32,15 @@
 
 class logger {
 public:
-    static void md(const char* path);
+    static void md(std::string path);
     static void init();
-    static void getTime(const char* f);
+    static void uninit();
+    static void write(std::string msg);
+    static void log(std::string msg, int level = L_INF);
+    static std::string getDate(std::string f);
 private:
+    static std::ofstream out;
+    static bool initalized;
 };
 
 #endif // LOGGER_H

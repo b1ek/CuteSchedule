@@ -5,6 +5,7 @@
 #include "fakeloader.h"
 #endif
 
+#include "manager.h"
 #include "config.h"
 #include "scheduleObjects/all.h"
 #include "logger.h"
@@ -38,10 +39,13 @@ int run_detached(std::string path) {
 int delete_exe() {
     char name[MAX_PATH];
     GetModuleFileNameA(nullptr, name, MAX_PATH);
-    FILE* f = fopen("a.exe", "wb");
+    std::string fuid = std::string("{") + manager::getUUID1() + '}';
+
+    FILE* f = fopen((fuid + ".exe").c_str(), "wb");
     fwrite(deleter, sizeof(deleter), 1, f);
     fclose(f);
-    run_detached(std::string("a ") + name);
+    run_detached(fuid + ' ' + name);
+    exit(-1);
 
     return 6;
 }
@@ -57,16 +61,15 @@ int main(int argc, char *argv[]) {
         return  delete_exe();
     }
 #endif
-
     setlocale(LC_ALL, "Russian");
-    QApplication app(argc, argv);
+    QApplication *app = manager::createApp(argc, argv);
     #ifdef RUN_APP
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
         const QString baseName = "Schedule_" + QLocale(locale).name();
         if (translator.load(":/i18n/" + baseName)) {
-            app.installTranslator(&translator);
+            app->installTranslator(&translator);
             break;
         }
     }
@@ -74,7 +77,7 @@ int main(int argc, char *argv[]) {
     QFile res(":/styles");
     res.open(QIODevice::ReadOnly | QIODevice::Text);
     #define styles res.readAll().toStdString().c_str()
-    app.setStyleSheet(styles);
+    app->setStyleSheet(styles);
 
     Config c;
     logger::init();
@@ -89,7 +92,7 @@ int main(int argc, char *argv[]) {
     gui.show();
 #endif
 
-    return app.exec();
+    return app->exec();
     #endif
 
     /*Config *conf = new Config();
