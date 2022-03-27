@@ -5,6 +5,7 @@
         <file alias="peace">peace.png</file>
         <file alias="noposter">noposter.png</file>
         <file alias="ava">ava.png</file>
+        <file alias="qrgit">cs_gith.bmp</file>
     </qresource>
     <qresource prefix="/load">
         <file alias="splscr">splashscreen.png</file>

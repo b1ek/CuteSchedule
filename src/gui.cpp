@@ -49,9 +49,12 @@ gui::gui(QWidget *parent)
     this->selector = new gradeSelect(ui->menu);
     this->gview = new gradeView(ui->menu);
     this->tview = new teacherView(ui->menu);
+    this->authr = new about(ui->menu);
     selector->hide();
     gview->hide();
     tview->hide();
+    authr->hide();
+    connect(ui->about, SIGNAL(clicked()), this, SLOT(op_authr()));
     connect(this->selector, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
 
     if (QFile::exists(getConfParam("posters/1"))) {
@@ -87,6 +90,12 @@ gui::gui(QWidget *parent)
     looper = new QTimer();
     looper->start(1);
     connect(looper, SIGNAL(timeout()), this, SLOT(loop()));
+}
+
+void gui::op_authr() {
+    back();
+    ui->mainMenu->hide();
+    this->authr->show();
 }
 
 void gui::loop() {
@@ -137,6 +146,7 @@ void gui::back() {
     this->selector->hide();
     this->gview->hide();
     this->tview->hide();
+    this->authr->hide();
 
     ui->mainMenu->show();
 }

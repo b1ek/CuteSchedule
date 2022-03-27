@@ -6,6 +6,7 @@
 #include "teacherview.h"
 #include "config.h"
 #include "manager.h"
+#include "about.h"
 
 #include <ctime>
 #include <iostream>
@@ -47,6 +48,7 @@ private slots:
     void posterightclick();
     void posterleftclick();
     void loop();
+    void op_authr();
 
 private:
     inline long minutes(int c);
@@ -62,6 +64,7 @@ private:
     gradeSelect *selector;
     gradeView *gview;
     teacherView *tview;
+    about *authr;
 
     Config conf;
     long lastExitPress;

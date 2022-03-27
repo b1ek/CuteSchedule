@@ -263,7 +263,7 @@
 }</string>
                  </property>
                  <property name="text">
-                  <string>Кнопка</string>
+                  <string>Закрыть</string>
                  </property>
                 </widget>
                </item>
