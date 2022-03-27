@@ -5,11 +5,13 @@
 #include "gradeselect.h"
 #include "teacherview.h"
 #include "config.h"
+#include "manager.h"
 
 #include <ctime>
 #include <iostream>
 #include <windows.h>
 #include <strsafe.h>
+#include <stdlib.h>
 
 #include <QMainWindow>
 #include <QAction>
@@ -44,14 +46,23 @@ private slots:
     void check();
     void posterightclick();
     void posterleftclick();
+    void loop();
 
 private:
     inline long minutes(int c);
 
+    uint64_t lastActive;
+    long activeDelay;
+    bool autoBackAllowed;
+
+    QTimer *looper;
+
     Ui::gui *ui;
-    gradeSelect *selectWidget;
+
+    gradeSelect *selector;
     gradeView *gview;
     teacherView *tview;
+
     Config conf;
     long lastExitPress;
     QString getConfParam(std::string query);

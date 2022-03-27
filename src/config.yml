@@ -16,7 +16,10 @@ config:
         password: 1234
         ssl: true
         port: 465
+        dest: me@gmail.com
     # noposters: true
+    noAutoBack: true
+
 
 # posters:
 #    1: poster-1.png

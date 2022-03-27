@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QStyleFactory>
+#include <QTimer>
 
 #include "scheduleObjects/all.h"
 
@@ -16,6 +17,11 @@ class teacherView : public QWidget {
 public:
     explicit teacherView(QWidget *parent = nullptr);
     ~teacherView();
+
+private slots:
+    void hd_note();
+    void sw_note();
+    void hideEvent(QHideEvent* e);
 
 private:
     Ui::teacherview *ui;

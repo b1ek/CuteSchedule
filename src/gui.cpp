@@ -17,6 +17,7 @@ QString gui::getConfParam(str query) {
     return a.c_str();
 }
 
+
 gui::gui(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::gui)
@@ -45,13 +46,13 @@ gui::gui(QWidget *parent)
     connect(timer, SIGNAL(timeout()), this, SLOT(check()));
     timer->start(1000);
 
-    this->selectWidget = new gradeSelect(ui->menu);
+    this->selector = new gradeSelect(ui->menu);
     this->gview = new gradeView(ui->menu);
     this->tview = new teacherView(ui->menu);
-    selectWidget->hide();
+    selector->hide();
     gview->hide();
     tview->hide();
-    connect(this->selectWidget, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
+    connect(this->selector, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
 
     if (QFile::exists(getConfParam("posters/1"))) {
         ui->poster1->setStyleSheet(QString("background: url(").append(getConfParam("posters/1")).append(");\n"));
@@ -70,24 +71,39 @@ gui::gui(QWidget *parent)
         ui->poster2->hide();
     }
 
-    buttonRight_press();
-    raise();
+    if (manager::isNumber(conf.get("config/activeDelay").c_str())) {
+        activeDelay = atoi(conf.get("config/activeDelay").c_str());
+    } else {activeDelay = 60000;}
+    autoBackAllowed = true;
+    if (conf.get("config/noAutoBack") != "(null)") {
+        autoBackAllowed = false;
+    }
+
     show();
+    setWindowFlags(Qt::WindowStaysOnTopHint);
+    Sleep(1);
+    setWindowFlags(windowFlags() ^ Qt::WindowStaysOnTopHint);
+
+    looper = new QTimer();
+    looper->start(1);
+    connect(looper, SIGNAL(timeout()), this, SLOT(loop()));
+}
+
+void gui::loop() {
+    if (manager::getMSTime() - lastActive >= activeDelay && autoBackAllowed) {
+        back();
+    }
 }
 
 inline long gui::minutes(int c) {
     return c * 60;
 }
 
-void gui::warnNexit() {/*
-    QMessageBox *msg = new QMessageBox();
-    msg->setWindowTitle("Предупреждение о выходе из программы");
-    msg->setText("Выходите из программы только если вы уверены, что делаете.\n"
-                 "Любые не санкционированные действия(удаление файлов, запуск неизвестных программ) будут преследоваться.\n\n"
-                 "Если вы точно хотите выйти, закройте это окно и нажмите кнопку выхода ещё раз.");
-    msg->addButton(QMessageBox::Ok);
-    msg->show();*/
-    qApp->exit(7);
+void gui::warnNexit() {
+    std::ofstream out("lastExit.txt");
+    out << "В последний раз выход был выполнен: " << manager::getDate("%mго месяца %d дня %Y года %H:%M:%S\n");
+    out.close();
+    manager::quit(7);
 
 }
 
@@ -96,10 +112,12 @@ gui::gui(Config c) : gui(nullptr) {
 }
 
 void gui::posterightclick() {
+    lastActive = manager::getMSTime();
     //QMessageBox::information(this, "info", "you clicked a poster!");
 }
 
 void gui::posterleftclick() {
+    lastActive = manager::getMSTime();
 
 }
 void gui::check() {
@@ -115,7 +133,8 @@ void gui::check() {
 }
 
 void gui::back() {
-    this->selectWidget->hide();
+    lastActive = manager::getMSTime();
+    this->selector->hide();
     this->gview->hide();
     this->tview->hide();
 
@@ -123,6 +142,7 @@ void gui::back() {
 }
 
 void gui::buttonRight_press() {
+    lastActive = manager::getMSTime();
     back();
     ui->mainMenu->hide();
 
@@ -130,10 +150,11 @@ void gui::buttonRight_press() {
 }
 
 void gui::buttonLeft_pressed() {
+    lastActive = manager::getMSTime();
     back();
     ui->mainMenu->hide();
 
-    selectWidget->show();
+    selector->show();
 }
 
 gui::~gui() {
@@ -141,7 +162,8 @@ gui::~gui() {
 }
 
 void gui::receive_selected_grade(QString id) {
-    this->selectWidget->hide();
+    lastActive = manager::getMSTime();
+    this->selector->hide();
 
     this->gview->setID(id);
     this->gview->show();
@@ -149,5 +171,6 @@ void gui::receive_selected_grade(QString id) {
 
 
 void gui::setTitle(QString value) {
+    lastActive = manager::getMSTime();
     ui->uiTitle->setText(value);
 }

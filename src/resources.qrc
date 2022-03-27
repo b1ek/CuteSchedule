@@ -4,6 +4,7 @@
         <file alias="wood">woodbutton.png</file>
         <file alias="peace">peace.png</file>
         <file alias="noposter">noposter.png</file>
+        <file alias="ava">ava.png</file>
     </qresource>
     <qresource prefix="/load">
         <file alias="splscr">splashscreen.png</file>

@@ -236,7 +236,7 @@
                 <number>4</number>
                </property>
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="hide_note_btn">
                  <property name="minimumSize">
                   <size>
                    <width>130</width>

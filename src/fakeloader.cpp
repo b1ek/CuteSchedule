@@ -18,7 +18,7 @@ fakeloader::fakeloader(QWidget *parent) :
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::FramelessWindowHint);
     ui->setupUi(this);
     ssleep(750);
 }
