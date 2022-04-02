@@ -39,10 +39,13 @@
     	max-height: 256px;
     	max-width: 512px;
 		font: bold italic 13pt &quot;Segoe UI&quot;;
+
+		
+
 }
 
 #centralwidget {
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0.255682 rgba(255, 247, 244, 255), stop:1 rgba(235, 232, 227, 255));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 229, 255), stop:1 rgba(246, 225, 202, 255));
 }
 
 #poster1,
@@ -604,7 +607,7 @@
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 229, 255), stop:1 rgba(233, 222, 210, 255));
+          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 250, 229, 255), stop:1 rgba(235, 216, 133, 255));
 border: 1px solid #3e3e3e;
 border-radius: 6px;</string>
          </property>
@@ -630,7 +633,7 @@ border-radius: 6px;</string>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>40</height>
+        <height>33</height>
        </size>
       </property>
      </spacer>
@@ -639,15 +642,17 @@ border-radius: 6px;</string>
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
-        <pointsize>9</pointsize>
+        <family>Consolas</family>
+        <pointsize>12</pointsize>
         <bold>false</bold>
+        <kerning>true</kerning>
        </font>
       </property>
       <property name="text">
        <string>CuteSchedule ver. 1.3.4 CUTIE | (c) blek! Все права защищены</string>
       </property>
       <property name="margin">
-       <number>16</number>
+       <number>12</number>
       </property>
      </widget>
     </item>

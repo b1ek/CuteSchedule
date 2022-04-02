@@ -17,8 +17,8 @@
 #include <QTranslator>
 #include <QMessageBox>
 #include <QStyleFactory>
-#include <ctime>
 
+#include <ctime>
 #include <windows.h>
 #include <strsafe.h>
 
@@ -109,4 +109,11 @@ int main(int argc, char *argv[]) {
     }*/
 
     return 0;
-}
+} // main
+
+
+#ifndef NO_WND
+#ifndef WIN32
+#error "This is a windows application go fuck yourself or define NO_WND"
+#endif
+#endif

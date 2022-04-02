@@ -169,6 +169,11 @@ void gui::buttonLeft_pressed() {
 
 gui::~gui() {
     delete ui;
+    delete looper;
+    delete selector;
+    delete gview;
+    delete tview;
+    delete authr;
 }
 
 void gui::receive_selected_grade(QString id) {

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(CuteSchedule VERSION 0.1 LANGUAGES CXX)
+project(CuteSchedule VERSION 1.3.5 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -11,8 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Network LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network LinguistTools REQUIRED)
 find_library(YCPP yaml-cpp ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 
 configure_file(${CMAKE_SOURCE_DIR}/src/config.yml ${CMAKE_BINARY_DIR}/config.yml COPYONLY) # copy default config
@@ -62,7 +62,7 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(CuteSchedule PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(CuteSchedule PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(CuteSchedule PUBLIC ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 
 set_target_properties(CuteSchedule PROPERTIES

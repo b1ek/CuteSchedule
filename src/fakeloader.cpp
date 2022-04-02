@@ -6,26 +6,29 @@ void ssleep(long ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-fakeloader::fakeloader(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::fakeloader)
-{
-    this->conf = Config();
-    timer_c = 0;
-    this->timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1);
-    //this->setStyle(QStyleFactory::create("fusion"));
-    //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
-    setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::FramelessWindowHint);
-    ui->setupUi(this);
-    ssleep(750);
+fakeloader::fakeloader(QWidget *parent) : fakeloader(Config(), parent) {}
+
+void fakeloader::managerFinished(QNetworkReply *reply) {
+    if (reply->error()) {
+        qDebug() << reply->errorString();
+        return;
+    }
+
+    QString answer = reply->readAll();
+
+    qDebug() << answer;
 }
 
-fakeloader::fakeloader(Config __conf) :
+fakeloader::fakeloader(Config __conf, QWidget *parent) :
     QMainWindow(nullptr),
     ui(new Ui::fakeloader) {
+
+    manager = new QNetworkAccessManager(this);
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+        this, SLOT(managerFinished(QNetworkReply*)));
+    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=1.3.4"));
+    manager->get(request);
+
     this->conf = __conf;
     timer_c = 0;
     this->timer = new QTimer(this);
@@ -43,6 +46,7 @@ fakeloader::~fakeloader() {
     delete ui;
     delete timer;
     delete g;
+    delete manager;
 }
 
 void fakeloader::launchApp() {

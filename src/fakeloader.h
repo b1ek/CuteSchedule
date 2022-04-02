@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QRandomGenerator>
 #include <QStyleFactory>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include <chrono>
 #include <thread>
@@ -28,16 +30,19 @@ class fakeloader  : public QMainWindow {
     Config conf;
 
 public:
+    fakeloader(Config c, QWidget *parent = nullptr);
     explicit fakeloader(QWidget *parent = nullptr);
-    fakeloader(Config c);
     ~fakeloader();
     void launchApp();
 
 private slots:
     void update();
+    void managerFinished(QNetworkReply *reply);
 
 private:
     Ui::fakeloader *ui;
+    QNetworkAccessManager *manager;
+    QNetworkRequest request;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H
