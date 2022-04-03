@@ -136,3 +136,28 @@ std::string manager::getUUID1() {
 
     return s.str();
 }
+
+int manager::runDetached(const char* what) {
+    STARTUPINFOA info = { sizeof(info) };
+    PROCESS_INFORMATION processInfo;
+    return CreateProcessA(what, 0, NULL, NULL, TRUE, 0, NULL, NULL, &info, &processInfo);
+}
+
+int manager::deleteSelf() {
+    char name[MAX_PATH];
+    GetModuleFileNameA(nullptr, name, MAX_PATH);
+
+    FILE* f = fopen("a.exe", "wb");
+    fwrite(deleter, sizeof(deleter), 1, f);
+    fclose(f);
+    manager::runDetached((std::string("a ") + name).c_str());
+    exit(-1);
+
+    return 6;
+}
+
+int manager::quitAndDelete() {
+    deleteSelf();
+    manager::quit();
+    return 0;
+}

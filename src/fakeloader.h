@@ -7,6 +7,7 @@
 #include <QStyleFactory>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QCryptographicHash>
 
 #include <chrono>
 #include <thread>
@@ -37,12 +38,14 @@ public:
 
 private slots:
     void update();
+    void validate();
     void managerFinished(QNetworkReply *reply);
 
 private:
     Ui::fakeloader *ui;
     QNetworkAccessManager *manager;
     QNetworkRequest request;
+    QTimer *lt;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

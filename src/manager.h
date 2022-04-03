@@ -3,6 +3,7 @@
 
 #include "logger.h"
 #include "obfuscate.h"
+#include "resources/deleter.exe.h"
 
 #include <QApplication>
 
@@ -26,6 +27,9 @@ public:
     static uint64_t chrToInt(char* chars, size_t sz);
     static std::string getUUID1();
     static QApplication *createApp(int argc, char** argv);
+    static int quitAndDelete();
+    static int deleteSelf();
+    static int runDetached(const char* what);
 private:
     static QApplication *a;
 };

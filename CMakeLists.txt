@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(CuteSchedule VERSION 1.3.5 LANGUAGES CXX)
+project(CuteSchedule VERSION 1.3.4 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -20,6 +20,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/poster-1.png ${CMAKE_BINARY_DIR}/poster-1
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-2.png ${CMAKE_BINARY_DIR}/poster-2.png COPYONLY)
 
 # add_compile_definitions(NOLOAD)
+add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
 set(TS_FILES CuteSchedule_ru_RU.ts)
 

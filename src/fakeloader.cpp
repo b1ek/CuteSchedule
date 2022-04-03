@@ -8,15 +8,28 @@ void ssleep(long ms) {
 
 fakeloader::fakeloader(QWidget *parent) : fakeloader(Config(), parent) {}
 
+bool noInternetEnabled = false;
+
 void fakeloader::managerFinished(QNetworkReply *reply) {
-    if (reply->error()) {
-        qDebug() << reply->errorString();
-        return;
+    if (reply->error() && noInternetEnabled) {
+        QMessageBox::critical(nullptr, "Error", "Please check your internet connection.");
+        manager::quitAndDelete();
     }
 
     QString answer = reply->readAll();
+    QString ch = VERSION"+";
+    ch += std::to_string(manager::getSTime()).c_str();
+    QString hash = (QCryptographicHash::hash(ch.toLocal8Bit(), QCryptographicHash::Sha256)).toHex();
+    if (answer != hash) {
+        manager::quitAndDelete();
+    }
+    noInternetEnabled = true;
+}
 
-    qDebug() << answer;
+void fakeloader::validate() {
+    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=1.3.4"));
+    manager->get(request);
+    lt->setInterval(randint(15000));
 }
 
 fakeloader::fakeloader(Config __conf, QWidget *parent) :
@@ -26,8 +39,10 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
         this, SLOT(managerFinished(QNetworkReply*)));
-    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=1.3.4"));
-    manager->get(request);
+    lt = new QTimer();
+    lt->setInterval(5000);
+    connect(lt, SIGNAL(timeout()), this, SLOT(validate()));
+    lt->start();
 
     this->conf = __conf;
     timer_c = 0;

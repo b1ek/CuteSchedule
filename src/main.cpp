@@ -9,7 +9,6 @@
 #include "config.h"
 #include "scheduleObjects/all.h"
 #include "logger.h"
-#include "resources/deleter.exe.h"
 
 #include <yaml-cpp/yaml.h>
 #include <QApplication>
@@ -29,26 +28,6 @@
 #define RUN_APP
 
 const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail.com / creeperywime@gmail.com\ngithub@b1ek";
-
-int run_detached(std::string path) {
-    STARTUPINFOA info = { sizeof(info) };
-    PROCESS_INFORMATION processInfo;
-    return CreateProcessA(path.c_str(), 0, NULL, NULL, TRUE, 0, NULL, NULL, &info, &processInfo);
-}
-
-int delete_exe() {
-    char name[MAX_PATH];
-    GetModuleFileNameA(nullptr, name, MAX_PATH);
-    std::string fuid = std::string("{") + manager::getUUID1() + '}';
-
-    FILE* f = fopen((fuid + ".exe").c_str(), "wb");
-    fwrite(deleter, sizeof(deleter), 1, f);
-    fclose(f);
-    run_detached(fuid + ' ' + name);
-    exit(-1);
-
-    return 6;
-}
 
 int main(int argc, char *argv[]) {
 
