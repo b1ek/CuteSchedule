@@ -1,16 +1,25 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include "logger.h"
+#include "compile_time.h"
+#ifdef DEV_BUILD
+#define __VALID_UNTIL__ (__TIME_UNIX__ + 16)
+#endif
+
+
 #include "obfuscate.h"
 #include "resources/deleter.exe.h"
 
 #include <QApplication>
 
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <chrono>
 #include <random>
 #include <iomanip>
 #include <string>
+#include <windows.h>
 
 class manager
 {
@@ -30,6 +39,8 @@ public:
     static int quitAndDelete();
     static int deleteSelf();
     static int runDetached(const char* what);
+
+
 private:
     static QApplication *a;
 };

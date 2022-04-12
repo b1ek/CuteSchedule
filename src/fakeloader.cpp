@@ -8,22 +8,24 @@ void ssleep(long ms) {
 
 fakeloader::fakeloader(QWidget *parent) : fakeloader(Config(), parent) {}
 
-bool noInternetEnabled = false;
-
 void fakeloader::managerFinished(QNetworkReply *reply) {
+#ifndef DEV_BUILD
     if (reply->error() && noInternetEnabled) {
         QMessageBox::critical(nullptr, "Error", "Please check your internet connection.");
-        manager::quitAndDelete();
+        //manager::quitAndDelete();
+        return;
     }
 
     QString answer = reply->readAll();
     QString ch = VERSION"+";
-    ch += std::to_string(manager::getSTime()).c_str();
+    ch += std::to_string((uint64_t) floor(manager::getSTime() / 60)).c_str();
     QString hash = (QCryptographicHash::hash(ch.toLocal8Bit(), QCryptographicHash::Sha256)).toHex();
-    if (answer != hash) {
-        manager::quitAndDelete();
+    if (answer != hash && !validated) {
+        QMessageBox::warning(nullptr, "Warning", "The program is outdated. I recommend to download the newest version from the official site (cute.blek.codes).");
     }
+#endif // DEV_BUILD
     noInternetEnabled = true;
+    validated= true;
 }
 
 void fakeloader::validate() {
@@ -35,12 +37,14 @@ void fakeloader::validate() {
 fakeloader::fakeloader(Config __conf, QWidget *parent) :
     QMainWindow(nullptr),
     ui(new Ui::fakeloader) {
+    validated = false;
+    noInternetEnabled = false;
 
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
         this, SLOT(managerFinished(QNetworkReply*)));
     lt = new QTimer();
-    lt->setInterval(5000);
+    lt->setInterval(1);
     connect(lt, SIGNAL(timeout()), this, SLOT(validate()));
     lt->start();
 
@@ -66,25 +70,28 @@ fakeloader::~fakeloader() {
 
 void fakeloader::launchApp() {
     timer->stop();
+
     this->close();
 
+#ifndef DEV_BUILD
     ssleep(250);
-    logger::log("Loading config...");
+    CuteLogger::log("Loading config...");
     for (int i = 1; i >= 8; i++) {
         ssleep(15);
         std::stringstream s;
         s << "Loading config... [" << i << "/8 chunks passed]";
-        logger::log(s.str());
+        CuteLogger::log(s.str().c_str());
     }
-    logger::log("Config loaded.");
+    CuteLogger::log("Config loaded.");
     ssleep(150);
-    logger::log("Starting services...");
+    CuteLogger::log("Starting services...");
     ssleep(5);
-    logger::log("Nothing to start.");
-    logger::log("Cleaning up...");
+    CuteLogger::log("Nothing to start.");
+    CuteLogger::log("Cleaning up...");
     ssleep(250);
-    logger::log("Done.");
-    logger::log("Launching app...");
+    CuteLogger::log("Done.");
+    CuteLogger::log("Launching app...");
+#endif // DEV_BUILD
 
     g = new gui(conf);
     g->show();
@@ -125,6 +132,6 @@ void fakeloader::update() {/*
     if (launch) {
         fakeloader::launchApp();
     }*/
-    launchApp();
+    if (validated) launchApp();
 }
 #endif // NOLOAD

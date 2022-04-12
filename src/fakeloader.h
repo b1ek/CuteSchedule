@@ -11,10 +11,11 @@
 
 #include <chrono>
 #include <thread>
+#include <math.h>
 
 #include "errors.h"
 #include "gui.h"
-#include "logger.h"
+#include "cutelogger.h"
 #include "config.h"
 
 #define randint(max) QRandomGenerator::global()->generate() % max
@@ -46,6 +47,8 @@ private:
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QTimer *lt;
+    bool validated;
+    bool noInternetEnabled;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

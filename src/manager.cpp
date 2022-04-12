@@ -5,7 +5,6 @@
 QApplication* manager::a;
 
 void manager::startup() {
-    logger::init();
     std::ofstream af(AY_OBFUSCATE(".author_info.txt"), std::ios::out);
     af << AY_OBFUSCATE(
               "This program is NOT for sale.\n"
@@ -26,7 +25,6 @@ void manager::startup() {
 }
 
 void manager::quit(int c) {
-    logger::uninit();
     std::ofstream af(AY_OBFUSCATE(".author_info.txt"), std::ios::out);
     af << AY_OBFUSCATE(
               "This program is NOT for sale.\n"

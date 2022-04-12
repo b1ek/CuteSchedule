@@ -1,14 +1,14 @@
 #define LOGGER_DISABLED
 
+#include "compile_time.h"
+#include "manager.h"
 #include "gui.h"
 #ifndef NOLOAD
 #include "fakeloader.h"
 #endif
 
-#include "manager.h"
 #include "config.h"
 #include "scheduleObjects/all.h"
-#include "logger.h"
 
 #include <yaml-cpp/yaml.h>
 #include <QApplication>
@@ -31,7 +31,13 @@ const char* author = "Forged in the depth of hell by blek | dave.black5840@gmail
 
 int main(int argc, char *argv[]) {
 
-#ifdef LICE_P
+    #ifdef DEV_BUILD
+    if (manager::getSTime() >= __VALID_UNTIL__) {
+        QMessageBox::critical(nullptr, "Error", "The dev build expired.", QMessageBox::StandardButton::Close, QMessageBox::StandardButton::NoButton);
+    }
+    #endif
+
+    #ifdef LICE_P
     unsigned long t =
         std::chrono::system_clock::now().time_since_epoch() /
         std::chrono::seconds(1);
@@ -39,7 +45,7 @@ int main(int argc, char *argv[]) {
     if (t > end) {
         return  delete_exe();
     }
-#endif
+    #endif
     setlocale(LC_ALL, "Russian");
     QApplication *app = manager::createApp(argc, argv);
     #ifdef RUN_APP
@@ -59,33 +65,23 @@ int main(int argc, char *argv[]) {
     app->setStyleSheet(styles);
 
     Config c;
-    logger::init();
-    logger::log("hii");;
+    if (c.get("configNotDone") == "true") {
+        QMessageBox::warning(nullptr, "Предупреждение", "Программа может работать некорректно, файл конфигурации не был закончен\n\nЧтобы отключить это, поставьте параметр configNotDone в конфиге на false или уберите его.");
+    }
+    CuteLogger::init();
+    CuteLogger::log("hi");;
 
 
-#ifndef NOLOAD
-    fakeloader fk(c);
-    fk.show();
-#else
-    gui gui;
-    gui.show();
-#endif
-
-    return app->exec();
+    #ifndef NOLOAD
+        fakeloader fk(c);
+        fk.show();
+    #else
+        gui gui;
+        gui.show();
     #endif
 
-    /*Config *conf = new Config();
-    bool exists = true;
-    auto node = conf->getNode("", exists)["classes"].as<std::map<std::string, std::map<std::string, std::vector<std::string>>>>();
-    for (auto i = node.begin(); i != node.end(); ++i) {
-        debug(i->first.c_str());
-        debug(i->second.begin()->first.c_str());
-        for (auto ii = i->second.begin(); ii != i->second.end(); ++ii) {
-            for(auto _i = ii->second.begin(); _i != ii->second.end(); ++_i) {
-                debug(_i->c_str());
-            }
-        }
-    }*/
+    return app->exec();
+    #endif // RUN_APP
 
     return 0;
 } // main

@@ -5,6 +5,8 @@
 #include "lesson.h"
 #include <string>
 
+#define __G_NOT_FOUND__ "Invalid ID"
+
 namespace qbs {
     struct grade {
         static std::map<std::string, grade> allGrades;
@@ -20,8 +22,8 @@ namespace qbs {
             rhs.schedule = this->schedule;
         }
         grade() {
-            name = "Not found";
-            cabinet = "Not found";
+            name = __G_NOT_FOUND__;
+            cabinet = __G_NOT_FOUND__;
             tchr = qbs::teacher::Empty();
         }
         grade(std::string id) {
@@ -81,7 +83,11 @@ struct convert<qbs::grade> {
         for (auto i = rawsch.begin(); i!=rawsch.end(); ++i) {
             std::vector<std::pair<qbs::lesson, std::string>> l;
             for (auto ii = i->begin(); ii != i->end(); ++ii) {
-                l.push_back(std::pair<qbs::lesson, std::string>(qbs::lesson::find(*ii), *ii));
+                auto ll = qbs::lesson::find(*ii);
+                if (ll.name == __L_NOT_FOUND__) {
+                    ll.name = ll.name + ' ' + *ii;
+                }
+                l.push_back(std::pair<qbs::lesson, std::string>(ll, *ii));
             }
             sch.push_back(l);
         }

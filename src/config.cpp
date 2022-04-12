@@ -1,5 +1,5 @@
 #include "config.h"
-#include "logger.h"
+#include "cutelogger.h"
 
 #define print(something) std::cout << something << std::endl
 
@@ -33,7 +33,7 @@ std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
 std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
     if (!fexist("config.yml")) {
-        logger::log("No config file found, created a default one");
+        CuteLogger::log("No config file found, created a default one");
     }
 
     this->file = YAML::LoadFile("config.yml");
@@ -45,7 +45,7 @@ Config::Config() {
     qbs::grade::allGrades = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
 
-    logger::log("Loaded config");
+    CuteLogger::log("Loaded config");
 }
 
 void Config::reload() {
@@ -59,7 +59,7 @@ void Config::reload() {
     qbs::grade::allGrades = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
 
-    logger::log("Reloaded config");
+    CuteLogger::log("Reloaded config");
 }
 
 YAML::Node Config::getNode(std::string ofWhat, bool& exists) {
