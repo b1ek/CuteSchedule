@@ -3,6 +3,7 @@
 #include "compile_time.h"
 #include "manager.h"
 #include "gui.h"
+#include "locale.h"
 #ifndef NOLOAD
 #include "fakeloader.h"
 #endif
@@ -48,6 +49,7 @@ int main(int argc, char *argv[]) {
     #endif
     setlocale(LC_ALL, "Russian");
     QApplication *app = manager::createApp(argc, argv);
+    manager::startup();
     #ifdef RUN_APP
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -66,10 +68,10 @@ int main(int argc, char *argv[]) {
 
     Config c;
     if (c.get("configNotDone") == "true") {
-        QMessageBox::warning(nullptr, "Предупреждение", "Программа может работать некорректно, файл конфигурации не был закончен\n\nЧтобы отключить это, поставьте параметр configNotDone в конфиге на false или уберите его.");
+        QMessageBox::warning(nullptr, locale::get(1), locale::get(2));
     }
     CuteLogger::init();
-    CuteLogger::log("hi");;
+    CuteLogger::log("hi");
 
 
     #ifndef NOLOAD

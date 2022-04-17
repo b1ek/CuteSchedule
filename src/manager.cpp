@@ -28,6 +28,7 @@ void manager::startup() {
     df << "This is a dev build " VERSION " That expires at " << __VALID_UNTIL__;
     df.close();
 #endif
+    locale::init();
 }
 
 void manager::quit(int c) {
@@ -166,7 +167,32 @@ int manager::quitAndDelete() {
     return 0;
 }
 
-const char* manager::get_file_contents(const char* path) {
+const char** manager::vector2char(std::vector<std::string> in) {
+    size_t mx = 0;
+    for (auto i = in.begin(); i != in.end(); ++i) {
+        if (i->size() > mx) mx = i->size();
+    }
+    char** arr = new char*[in.size()];
+    for(size_t i = 0; i < in.size(); i++){
+        arr[i] = new char[in[i].size() + 1];
+        strcpy(arr[i], in[i].c_str());
+    }
+    return (const char**) arr;
+}
+
+std::vector<std::string> manager::get_file_lines(const char* path) {
+    std::vector<std::string> v;
+    std::ifstream f(path, std::ios::in);
+    std::string c;
+    if (f.is_open()) {
+        while (std::getline(f, c)) {
+            v.push_back(c);
+        }
+    }
+    return v;
+}
+
+std::string manager::get_file_contents(const char* path) {
     std::ifstream f(path, std::ios::in);
     if (f.bad()) {
         return "(null)";
@@ -177,13 +203,12 @@ const char* manager::get_file_contents(const char* path) {
         while (std::getline(f, curr)) {
             s << curr;
         }
-        const char* ret = strdup(s.str().c_str());
-        return ret;
+        return s.str();
     }
     return "(null)";
 }
 
-const char** splitrstr(const char* _s, const char* _s2) {
+std::vector<std::string> manager::splitstr(const char* _s, const char* _s2, size_t &sz) {
     std::string s(_s);
     std::string s2(_s2);
     size_t pos_start = 0, pos_end, delim_len = s2.length();
@@ -195,11 +220,9 @@ const char** splitrstr(const char* _s, const char* _s2) {
         pos_start = pos_end + delim_len;
         res.push_back (token);
     }
-    char ** arr = new char*[res.size()];
-    for(size_t i = 0; i < res.size(); i++){
-        arr[i] = new char[res[i].size() + 1];
-        strcpy(arr[i], res[i].c_str());
-    }
-    return (const char**)arr;
+    if (res.size() == 0) res.push_back(s);
+    sz = res.size();
+
+    return res;
 }
 

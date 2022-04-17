@@ -36,6 +36,8 @@ gui::gui(QWidget *parent)
 
     ui->setupUi(this);
 
+    ui->ver_data->setText("CuteSchedule ver. " VERSION " | (c) blek! All rights reserved.");
+
     connect(ui->buttonLeft, SIGNAL(clicked()), this, SLOT(buttonLeft_pressed()));
     connect(ui->buttonRight, SIGNAL(clicked()), this, SLOT(buttonRight_press()));
     connect(ui->back, SIGNAL(clicked()), this, SLOT(back()));
@@ -90,6 +92,21 @@ gui::gui(QWidget *parent)
     looper = new QTimer();
     looper->start(1);
     connect(looper, SIGNAL(timeout()), this, SLOT(loop()));
+
+
+    // localization
+    ui->bottom_logo_text->setText(locale::get(4));
+    ui->uiTitle->setText(locale::get(5));
+    ui->buttonLeft->setText(locale::get(6));
+    ui->buttonRight->setText(locale::get(7));
+    ui->about->setText(locale::get(8));
+    ui->exit->setText(locale::get(9));
+    ui->back->setText(locale::get(10));
+    if (std::string(locale::get(11)).find("github@b1ek") != std::string::npos) {
+        ui->footer->setText(locale::get(11));
+    }
+    ui->perr1->setText(locale::get(12));
+    ui->perr2->setText(locale::get(12));
 }
 
 void gui::op_authr() {
@@ -110,7 +127,7 @@ inline long gui::minutes(int c) {
 
 void gui::warnNexit() {
     std::ofstream out("lastExit.txt");
-    out << "В последний раз выход был выполнен: " << manager::getDate("%mго месяца %d дня %Y года %H:%M:%S\n");
+    out << manager::getDate(locale::get(3));
     out.close();
     manager::quit(7);
 

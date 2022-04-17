@@ -55,6 +55,11 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     ssleep(1);
     ui->setupUi(this);
+#ifndef DEV_BUILD
+    ui->label->setText("Version " VERSION);
+#else
+    ui->label->setText("Version " VERSION " DEV BUILD");
+#endif
 }
 
 fakeloader::~fakeloader() {

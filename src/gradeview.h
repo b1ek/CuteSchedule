@@ -6,6 +6,8 @@
 #include <QAbstractTableModel>
 #include "scheduleObjects/all.h"
 
+#include "locale.h"
+
 namespace Ui {
 class gradeView;
 }

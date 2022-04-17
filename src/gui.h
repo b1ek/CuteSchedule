@@ -7,6 +7,7 @@
 #include "config.h"
 #include "manager.h"
 #include "about.h"
+#include "locale.h"
 
 #include <ctime>
 #include <iostream>

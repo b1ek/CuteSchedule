@@ -1,11 +1,18 @@
 #include "locale.h"
 
-QList<QString> locale::trs;
+std::vector<std::string> locale::trs;
 
 void locale::init() {
-    auto tmp = manager::get_file_contents("locale/current.txt");
-    auto list = manager::splitstr(tmp, "\n");
+    //auto tmp = manager::get_file_lines("locale/current.txt");
+    trs = manager::get_file_lines("locale/current.txt");
+}
 
-    free(tmp);
-    free(list);
+void locale::uninit() {}
+
+const char* locale::get(size_t id) {
+    id -= 1;
+    if (id > trs.size()) {
+        return "(null)";
+    }
+    return trs[id].c_str();
 }

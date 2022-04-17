@@ -18,10 +18,12 @@ find_library(YCPP yaml-cpp ${CMAKE_SOURCE_DIR}/src/yaml-cpp.lib)
 configure_file(${CMAKE_SOURCE_DIR}/src/config.yml ${CMAKE_BINARY_DIR}/config.yml COPYONLY) # copy default config
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-1.png ${CMAKE_BINARY_DIR}/poster-1.png COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-2.png ${CMAKE_BINARY_DIR}/poster-2.png COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/src/locale/current.txt ${CMAKE_BINARY_DIR}/locale/current.txt COPYONLY)
 
 # add_compile_definitions(NOLOAD)
 add_compile_definitions(DEV_BUILD)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
+add_compile_definitions(VERCODE="Cutie")
 
 set(TS_FILES CuteSchedule_ru_RU.ts)
 

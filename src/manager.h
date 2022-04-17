@@ -2,6 +2,9 @@
 #define MANAGER_H
 
 #include "compile_time.h"
+#ifndef LOCALE_H
+#include "locale.h"
+#endif
 #ifdef DEV_BUILD
 #define __VALID_UNTIL__ (__TIME_UNIX__ + 16)
 #endif
@@ -39,8 +42,10 @@ public:
     static int quitAndDelete();
     static int deleteSelf();
     static int runDetached(const char* what);
-    static const char* get_file_contents(const char* path);
-    static const char** splitstr(const char* s, const char* s2);
+    static const char** vector2char(std::vector<std::string> in);
+    static std::vector<std::string> get_file_lines(const char* path);
+    static std::string get_file_contents(const char* path);
+    static std::vector<std::string> splitstr(const char* s, const char* s2, size_t &sz);
 
 private:
     static QApplication *a;
