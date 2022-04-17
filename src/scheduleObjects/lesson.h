@@ -68,8 +68,8 @@ struct convert<qbs::lesson> {
             rhs.cabinet = n[l_classkey].as<std::string>();
             return true;
         }
-        rhs.name = n[0].as<std::string>();
-        rhs.__teacher = qbs::teacher::find(n[1].as<std::string>());
+        rhs.__teacher = qbs::teacher::find(n[0].as<std::string>());
+        rhs.name = n[1].as<std::string>();
         rhs.cabinet = n[2].as<std::string>();
         return true;
     }

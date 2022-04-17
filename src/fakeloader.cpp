@@ -10,35 +10,31 @@ fakeloader::fakeloader(QWidget *parent) : fakeloader(Config(), parent) {}
 
 void fakeloader::managerFinished(QNetworkReply *reply) {
 #ifndef DEV_BUILD
-    if (reply->error() && noInternetEnabled) {
-        QMessageBox::critical(nullptr, "Error", "Please check your internet connection.");
-        //manager::quitAndDelete();
+    if (reply->error() || versionCheckd) {
         return;
     }
 
     QString answer = reply->readAll();
     QString ch = VERSION"+";
-    ch += std::to_string((uint64_t) floor(manager::getSTime() / 60)).c_str();
+    ch += std::to_string((uint64_t) floor(manager::getSTime() / 3600)).c_str();
     QString hash = (QCryptographicHash::hash(ch.toLocal8Bit(), QCryptographicHash::Sha256)).toHex();
-    if (answer != hash && !validated) {
+    if (answer != hash && !versionCheckd) {
         QMessageBox::warning(nullptr, "Warning", "The program is outdated. I recommend to download the newest version from the official site (cute.blek.codes).");
     }
+    versionCheckd = true;
 #endif // DEV_BUILD
-    noInternetEnabled = true;
-    validated= true;
 }
 
 void fakeloader::validate() {
-    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=1.3.4"));
+    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=" VERSION));
     manager->get(request);
-    lt->setInterval(randint(15000));
+    lt->setInterval(randint(60000));
 }
 
 fakeloader::fakeloader(Config __conf, QWidget *parent) :
     QMainWindow(nullptr),
     ui(new Ui::fakeloader) {
-    validated = false;
-    noInternetEnabled = false;
+    versionCheckd = false;
 
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
@@ -132,6 +128,6 @@ void fakeloader::update() {/*
     if (launch) {
         fakeloader::launchApp();
     }*/
-    if (validated) launchApp();
+    /*if (versionCheckd)*/ launchApp();
 }
 #endif // NOLOAD

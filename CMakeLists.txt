@@ -20,7 +20,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/poster-1.png ${CMAKE_BINARY_DIR}/poster-1
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-2.png ${CMAKE_BINARY_DIR}/poster-2.png COPYONLY)
 
 # add_compile_definitions(NOLOAD)
-# add_compile_definitions(DEV_BUILD)
+add_compile_definitions(DEV_BUILD)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
 set(TS_FILES CuteSchedule_ru_RU.ts)

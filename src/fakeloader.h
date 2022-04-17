@@ -47,8 +47,7 @@ private:
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QTimer *lt;
-    bool validated;
-    bool noInternetEnabled;
+    bool versionCheckd;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

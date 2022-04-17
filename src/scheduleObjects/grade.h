@@ -20,6 +20,7 @@ namespace qbs {
             rhs.cabinet = this->cabinet;
             rhs.tchr = this->tchr;
             rhs.schedule = this->schedule;
+            return true;
         }
         grade() {
             name = __G_NOT_FOUND__;
@@ -66,26 +67,26 @@ struct convert<qbs::grade> {
         }
         n["schedule"] = ids;
         return n;
-    }
+    } // encode
+
     static bool decode(const Node& n, qbs::grade& rhs) {
-        if (!n.IsMap()) {
+        if (!n.IsMap()) { // fuck things that are not maps
             return false;
         }
         rhs.name = n["name"].as<std::string>();
         rhs.cabinet = n["cabinet"].as<std::string>();
-        std::string tid = n["teacher"].as<std::string>();
-
-        rhs.tchr = qbs::teacher::find(tid);
+        rhs.tchr = qbs::teacher::find(n["teacher"].as<std::string>());
 
         auto rawsch = n["schedule"].as<std::vector<std::vector<std::string>>>();
         std::vector<std::vector<std::pair<qbs::lesson, std::string>>> sch;
-        sch.reserve(rawsch.size() + 1);
+        sch.reserve(rawsch.size() + 1); // allocate some
+
         for (auto i = rawsch.begin(); i!=rawsch.end(); ++i) {
             std::vector<std::pair<qbs::lesson, std::string>> l;
             for (auto ii = i->begin(); ii != i->end(); ++ii) {
                 auto ll = qbs::lesson::find(*ii);
                 if (ll.name == __L_NOT_FOUND__) {
-                    ll.name = ll.name + ' ' + *ii;
+                    ll.name = ll.name + ' ' + *ii; // add id to not found message
                 }
                 l.push_back(std::pair<qbs::lesson, std::string>(ll, *ii));
             }
@@ -94,7 +95,7 @@ struct convert<qbs::grade> {
         rhs.schedule = sch;
 
         return true;
-    }
+    } // decode
 };
 }
 

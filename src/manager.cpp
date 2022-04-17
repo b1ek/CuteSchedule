@@ -22,6 +22,12 @@ void manager::startup() {
               "Forged in the depth of hell by blek!"
               );
     af.close();
+
+#ifdef DEV_BUILD
+    std::ofstream df(AY_OBFUSCATE("readme.txt"), std::ios::out);
+    df << "This is a dev build " VERSION " That expires at " << __VALID_UNTIL__;
+    df.close();
+#endif
 }
 
 void manager::quit(int c) {
@@ -159,3 +165,41 @@ int manager::quitAndDelete() {
     manager::quit();
     return 0;
 }
+
+const char* manager::get_file_contents(const char* path) {
+    std::ifstream f(path, std::ios::in);
+    if (f.bad()) {
+        return "(null)";
+    }
+    std::stringstream s;
+    std::string curr;
+    if (f.is_open()) {
+        while (std::getline(f, curr)) {
+            s << curr;
+        }
+        const char* ret = strdup(s.str().c_str());
+        return ret;
+    }
+    return "(null)";
+}
+
+const char** splitrstr(const char* _s, const char* _s2) {
+    std::string s(_s);
+    std::string s2(_s2);
+    size_t pos_start = 0, pos_end, delim_len = s2.length();
+    std::string token;
+    std::vector<std::string> res;
+
+    while ((pos_end = s.find (s2, pos_start)) != std::string::npos) {
+        token = s.substr (pos_start, pos_end - pos_start);
+        pos_start = pos_end + delim_len;
+        res.push_back (token);
+    }
+    char ** arr = new char*[res.size()];
+    for(size_t i = 0; i < res.size(); i++){
+        arr[i] = new char[res[i].size() + 1];
+        strcpy(arr[i], res[i].c_str());
+    }
+    return (const char**)arr;
+}
+

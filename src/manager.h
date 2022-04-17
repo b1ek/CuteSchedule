@@ -5,7 +5,7 @@
 #ifdef DEV_BUILD
 #define __VALID_UNTIL__ (__TIME_UNIX__ + 16)
 #endif
-
+#define c_array(type, size) ((type)malloc(size*sizeof(type)))
 
 #include "obfuscate.h"
 #include "resources/deleter.exe.h"
@@ -39,7 +39,8 @@ public:
     static int quitAndDelete();
     static int deleteSelf();
     static int runDetached(const char* what);
-
+    static const char* get_file_contents(const char* path);
+    static const char** splitstr(const char* s, const char* s2);
 
 private:
     static QApplication *a;
