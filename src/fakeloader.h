@@ -48,6 +48,7 @@ private:
     QNetworkRequest request;
     QTimer *lt;
     bool versionCheckd;
+    bool shouldBeClosed;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "scheduleObjects/all.h"
+#include "locale.h"
 
 namespace Ui {
 class teacherview;

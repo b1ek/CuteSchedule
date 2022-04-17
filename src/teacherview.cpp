@@ -17,7 +17,7 @@ teacherView::teacherView(QWidget *parent) :
 #define allT qbs::teacher::allTeachers
     ui->teachersS->setRowCount(allT.size());
 
-    ui->teachersS->setHorizontalHeaderLabels(QStringList({"ID", "Имя", "Полное имя", "Кабинет", "Тек. Каб."}));
+    ui->teachersS->setHorizontalHeaderLabels(QStringList({locale::get(22), locale::get(23), locale::get(24), locale::get(25), locale::get(26)}));
     int i = 0;
     int ttlw = 0;
     for (auto tchr = allT.begin(); tchr != allT.end(); ++tchr) {
@@ -55,7 +55,7 @@ teacherView::teacherView(QWidget *parent) :
             ttlw += t.cabinet.size()*(font_sz);
         }
 
-        ui->teachersS->setItem(i, 4, new QTableWidgetItem("N/a"));
+        ui->teachersS->setItem(i, 4, new QTableWidgetItem(locale::get(27)));
 
         ui->teachersS->setRowHeight(i, 20);
 
@@ -70,6 +70,11 @@ teacherView::teacherView(QWidget *parent) :
 
 #undef t
 #undef allT
+
+    // localize statics
+    ui->note_title->setText(locale::get(28));
+    ui->note_contents->setText(locale::get(29));
+    ui->hide_note_btn->setText(locale::get(30));
 
     connect(ui->hide_note_btn, SIGNAL(clicked()), this, SLOT(hd_note()));
     show();

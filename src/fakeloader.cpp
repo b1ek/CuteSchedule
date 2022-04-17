@@ -14,21 +14,26 @@ void fakeloader::managerFinished(QNetworkReply *reply) {
         return;
     }
 
+    if (reply->rawHeader(QString("Authority").toLocal8Bit()) != QString("true").toLocal8Bit()) {
+        return;
+    }
     QString answer = reply->readAll();
     QString ch = VERSION"+";
     ch += std::to_string((uint64_t) floor(manager::getSTime() / 3600)).c_str();
     QString hash = (QCryptographicHash::hash(ch.toLocal8Bit(), QCryptographicHash::Sha256)).toHex();
     if (answer != hash && !versionCheckd) {
-        QMessageBox::warning(nullptr, "Warning", "The program is outdated. I recommend to download the newest version from the official site (cute.blek.codes).");
+        QMessageBox::warning(nullptr, locale::get(31), locale::get(32));
     }
     versionCheckd = true;
 #endif // DEV_BUILD
 }
 
 void fakeloader::validate() {
-    request.setUrl(QUrl("http://cute.blek.codes/outdated.php?v=" VERSION));
-    manager->get(request);
-    lt->setInterval(randint(60000));
+    if (!versionCheckd) {
+        request.setUrl(QUrl("http://cute.blek.codes/outdated.php"));
+        manager->get(request);
+        lt->setInterval(randint(60000));
+    }
 }
 
 fakeloader::fakeloader(Config __conf, QWidget *parent) :
@@ -69,11 +74,9 @@ fakeloader::~fakeloader() {
     delete manager;
 }
 
+bool openedGui = false;
 void fakeloader::launchApp() {
-    timer->stop();
-
-    this->close();
-
+    shouldBeClosed = true;
 #ifndef DEV_BUILD
     ssleep(250);
     CuteLogger::log("Loading config...");
@@ -94,45 +97,22 @@ void fakeloader::launchApp() {
     CuteLogger::log("Launching app...");
 #endif // DEV_BUILD
 
-    g = new gui(conf);
-    g->show();
+    if (!openedGui) {
+        g = new gui(conf);
+        g->show();
+        openedGui = true;
+    }
 }
 
 bool launch = false;
-void fakeloader::update() {/*
-    if (timer_c <= 20) {
-        timer->setInterval(randint(150));
-        ui->progressBar->setValue(timer_c);
-        timer_c+= randint(5);
-    } if (timer_c <= 40) {
-        timer->setInterval(randint(200));
-        ui->progressBar->setValue(timer_c);
-        timer_c+= randint(4);
-    } if (timer_c <= 60) {
-        timer->setInterval(randint(250));
-        ui->progressBar->setValue(timer_c);
-        timer_c+= randint(3);
-    } if (timer_c <= 70) {
-        timer->setInterval(randint(300));
-        ui->progressBar->setValue(timer_c);
-        timer_c+= randint(2);
-    } if (timer_c <= 80) {
-        timer->setInterval(randint(300));
-        ui->progressBar->setValue(timer_c);
-        timer_c+= randint(8);
+void fakeloader::update() {
+    timer->setInterval(15);
+
+    if (shouldBeClosed) {
+        this->close();
+        timer->stop();
     } else {
-        timer->setInterval(1);
-        ui->progressBar->setValue(timer_c);
-        timer_c++;
+        launchApp();
     }
-    if (timer_c >= 90) {
-        ui->progressBar->setValue(100);
-        launch = true;
-        timer->setInterval(randint(1000));
-    }
-    if (launch) {
-        fakeloader::launchApp();
-    }*/
-    /*if (versionCheckd)*/ launchApp();
 }
 #endif // NOLOAD
