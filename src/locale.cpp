@@ -14,5 +14,7 @@ const char* locale::get(size_t id) {
     if (id > trs.size()) {
         return "(null)";
     }
-    return trs[id].c_str();
+    auto s = manager::replace(trs[id].c_str(), "\\n", "\n");
+    const char* c = s.c_str();
+    return c;
 }

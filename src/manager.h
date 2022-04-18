@@ -46,6 +46,7 @@ public:
     static std::vector<std::string> get_file_lines(const char* path);
     static std::string get_file_contents(const char* path);
     static std::vector<std::string> splitstr(const char* s, const char* s2, size_t &sz);
+    static std::string replace(std::string str, const std::string from, const std::string to);
 
 private:
     static QApplication *a;

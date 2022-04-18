@@ -226,3 +226,10 @@ std::vector<std::string> manager::splitstr(const char* _s, const char* _s2, size
     return res;
 }
 
+std::string manager::replace(std::string str, const std::string from, const std::string to) {
+    size_t start_pos = str.find(from);
+    if(start_pos == std::string::npos)
+        return str;
+    str.replace(start_pos, from.length(), to);
+    return str;
+}
