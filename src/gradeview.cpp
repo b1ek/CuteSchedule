@@ -7,14 +7,16 @@ gradeView::gradeView(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->sch->setStyle(QStyleFactory::create("fusion"));
+    ui->note_label->setText(locale::get(33));
 }
 
 void gradeView::setID(QString id) {
     ID = id;
     g = qbs::grade::allGrades[ID.toStdString()];
-    ui->cabinet->setText((std::string(locale::get(13)) + g.cabinet).c_str());
-    ui->name->setText((g.cabinet + locale::get(14)).c_str());
-    ui->teacher->setText((std::string(locale::get(15)) + g.tchr.name).c_str());
+    ui->cabinet->setText((std::string(locale::get(13)) + ' ' + g.cabinet).c_str());
+    ui->name->setText((g.name + ' ' + locale::get(14)).c_str());
+    ui->teacher->setText((std::string(locale::get(15)) + ' ' + g.tchr.name).c_str());
+    ui->sch_label->setText(locale::get(34));
 
     QStringList weekdays = {locale::get(16), locale::get(17), locale::get(18), locale::get(19), locale::get(20), locale::get(21)};
     int wkdy = 0;

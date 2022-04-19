@@ -61,14 +61,16 @@ gui::gui(QWidget *parent)
 
     if (QFile::exists(getConfParam("posters/1"))) {
         ui->poster1->setStyleSheet(QString("background: url(").append(getConfParam("posters/1")).append(");\n"));
-        ui->p1warning->setStyleSheet("background: none;");
+        ui->p1warning->hide();
     } else {
         ui->p1warning->setStyleSheet("background: url(:/noposter)");
+        ui->p2warning->show();
     } if (QFile::exists(getConfParam("posters/2"))) {
         ui->poster2->setStyleSheet(QString("background: url(").append(getConfParam("posters/2")).append(");"));
-        ui->p2warning->setStyleSheet("background: none;");
+        ui->p2warning->hide();
     } else {
         ui->p2warning->setStyleSheet("background: url(:/noposter)");
+        ui->p2warning->show();
     }
 
     if (conf.get("config/noposters") == "true") {

@@ -4,47 +4,50 @@ QFile* CuteLogger::out;
 QDateTime CuteLogger::date;
 bool CuteLogger::initalized;
 
-void CuteLogger::init() {
+// TODO:
+//  do the logger
+
+void CuteLogger::init() {/*
     if (initalized) return;
     CuteLogger::out = open();
-    CuteLogger::initalized = true;
+    CuteLogger::initalized = true;*/
 }
 
-void CuteLogger::uninit() {
+void CuteLogger::uninit() {/*
     if (!initalized) return;
     CuteLogger::out->close();
-    CuteLogger::initalized = false;
+    CuteLogger::initalized = false;*/
 }
 
-void CuteLogger::reload() {
+void CuteLogger::reload() {/*
     if (CuteLogger::initalized) {
         uninit();
     }
-    init();
+    init();*/
 }
 
-void CuteLogger::info(QString msg) {
+void CuteLogger::info(QString msg) {/*
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[INFO]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');
+    CuteLogger::write(QString("[INFO]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
 }
 
-void CuteLogger::warn(QString msg) {
+void CuteLogger::warn(QString msg) {/*
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[WARN]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');
+    CuteLogger::write(QString("[WARN]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
 }
 
-void CuteLogger::eror(QString msg) {
+void CuteLogger::eror(QString msg) {/*
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[ERROR] ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');
+    CuteLogger::write(QString("[ERROR] ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
 }
 
-void CuteLogger::crit(QString msg) {
+void CuteLogger::crit(QString msg) {/*
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[CRIT]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');
+    CuteLogger::write(QString("[CRIT]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
 
 }
 
-void CuteLogger::log(QString msg, Code c) {
+void CuteLogger::log(QString msg, Code c) {/*
     switch (c) {
     case Code::Info:
         info(msg);
@@ -79,6 +82,5 @@ QFile *CuteLogger::open() {
     }
     if (f->exists()) {
         f->open(f->openMode() | QIODevice::Append);
-    }
-    return f;
+    }*/
 }

@@ -19,7 +19,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/config.yml ${CMAKE_BINARY_DIR}/config.yml
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-1.png ${CMAKE_BINARY_DIR}/poster-1.png COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/src/poster-2.png ${CMAKE_BINARY_DIR}/poster-2.png COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/src/locale/current.txt ${CMAKE_BINARY_DIR}/locale/current.txt COPYONLY)
-set_source_files_properties(app.ico res.rc PROPERTIES LANGUAGE RC)
+set_source_files_properties(res.rc PROPERTIES LANGUAGE RC)
 
 # add_compile_definitions(NOLOAD)
 # add_compile_definitions(DEV_BUILD)
