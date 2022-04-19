@@ -24,15 +24,15 @@ gui::gui(QWidget *parent)
 {
     setWindowState(Qt::WindowFullScreen);
 
-    QAction *quitAction = new QAction(tr("E&xit"), this);
-    QList<QKeySequence> shortcuts;
-    shortcuts << QKeySequence("Ctrl+Q") << QKeySequence("Escape");
+    QAction *quitAction = new QAction();
+    QList<QKeySequence> shortcuts = { QKeySequence("Ctrl+Q"), QKeySequence("Ctrl+Shift+Q") };
     quitAction->setShortcuts(shortcuts);
 
-    auto rec = QApplication::primaryScreen()->geometry().size();
-
-    connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
+    QObject::connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
     addAction(quitAction);
+    quitAction->setEnabled(true);
+
+    auto rec = QApplication::primaryScreen()->geometry().size();
 
     ui->setupUi(this);
 

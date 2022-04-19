@@ -29,7 +29,7 @@ void fakeloader::managerFinished(QNetworkReply *reply) {
 }
 
 void fakeloader::validate() {
-    if (!versionCheckd) {
+    if (!versionCheckd && c.get("config/check_new_version") == "true") {
         request.setUrl(QUrl("http://cute.blek.codes/outdated.php"));
         manager->get(request);
         lt->setInterval(randint(60000));
@@ -41,24 +41,35 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     ui(new Ui::fakeloader) {
     versionCheckd = false;
 
+    c = Config();
+
+    QAction *quitAction = new QAction();
+    QList<QKeySequence> shortcuts = { QKeySequence("Ctrl+Q"), QKeySequence("Ctrl+Shift+Q") };
+    quitAction->setShortcuts(shortcuts);
+
+    QObject::connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
+    addAction(quitAction);
+    quitAction->setEnabled(true);
+
     manager = new QNetworkAccessManager(this);
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-        this, SLOT(managerFinished(QNetworkReply*)));
-    lt = new QTimer();
-    lt->setInterval(1);
-    connect(lt, SIGNAL(timeout()), this, SLOT(validate()));
-    lt->start();
+    if (c.get("config/check_new_version") == "true") {
+        QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(managerFinished(QNetworkReply*)));
+        lt = new QTimer();
+        lt->setInterval(1);
+        connect(lt, SIGNAL(timeout()), this, SLOT(validate()));
+        lt->start();
+    }
 
     this->conf = __conf;
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1);
+    timer->start(manager::getRND(3000, 5000));
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    ssleep(1);
     ui->setupUi(this);
 #ifndef DEV_BUILD
     ui->label->setText("Version " VERSION);
@@ -75,13 +86,11 @@ fakeloader::~fakeloader() {
 }
 
 void fakeloader::update() {
-    if (ticksSpent >= manager::getRND(10000, 15000) && NOT(guiOpened)) {
+    if (NOT(guiOpened)) {
         g = new gui();
         g->show();
-        guiOpened = true;
         close();
-    } else {
-        ticksSpent++;
+        guiOpened = true;
     }
 }
 #endif // NOLOAD

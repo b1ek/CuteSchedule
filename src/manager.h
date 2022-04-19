@@ -23,6 +23,7 @@
 #include <iomanip>
 #include <string>
 #include <windows.h>
+#include <sys/stat.h>
 
 class manager
 {
@@ -50,6 +51,7 @@ public:
     static const char* format(size_t &sz, const char* format, ...);
     static const char* format(const char* format, ...);
     static std::string format(std::string format, ...);
+    static bool fexists(const char* path);
 
 private:
     static QApplication *a;

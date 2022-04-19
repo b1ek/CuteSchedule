@@ -51,6 +51,7 @@ private:
     bool shouldBeClosed;
     bool guiOpened;
     uint64_t ticksSpent;
+    Config c;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

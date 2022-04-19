@@ -263,3 +263,8 @@ std::string manager::format(std::string format, ...) {
     va_end(args);
     return ret;
 }
+
+bool manager::fexists(const char* path) {
+    struct stat buffer;
+    return (stat (path, &buffer) == 0);
+}

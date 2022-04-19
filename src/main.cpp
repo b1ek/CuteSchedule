@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "Russian");
     QApplication *app = manager::createApp(argc, argv);
     manager::startup();
+
     #ifdef RUN_APP
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -65,6 +66,19 @@ int main(int argc, char *argv[]) {
     res.open(QIODevice::ReadOnly | QIODevice::Text);
     #define styles res.readAll().toStdString().c_str()
     app->setStyleSheet(styles);
+
+    if (!manager::fexists("config.yml")) {
+        QFile def(":/defconf");
+        if (!def.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QMessageBox::information(nullptr, "Error", "Cannot access config.yml");
+            return -1;
+        }
+        QTextStream in(&def);
+        std::ofstream f;
+        f.open("config.yml");
+        f << in.readAll().toStdString();
+        f.close();
+    }
 
     Config c;
     if (c.get("configNotDone") == "true") {
