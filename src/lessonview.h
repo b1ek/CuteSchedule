@@ -23,6 +23,7 @@ public:
 private:
     Ui::lessonView *ui;
     qbs::lesson lesn;
+    const char* lesn_id;
 };
 
 #endif // LESSONVIEW_H

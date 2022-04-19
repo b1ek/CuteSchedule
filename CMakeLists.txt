@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(CuteSchedule VERSION 1.3.5 LANGUAGES CXX)
+project(CuteSchedule VERSION 1.3.6 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 

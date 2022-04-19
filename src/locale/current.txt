@@ -38,3 +38,4 @@ Class properties
 Class name:
 Cabinet:
 Teacher:
+Internal ID:

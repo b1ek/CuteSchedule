@@ -20,10 +20,12 @@ void lessonView::refresh() {
     ui->name->setText(QString(locale::get(38)) + ' ' + lesn.name.c_str());
     ui->cabn->setText(QString(locale::get(39)) + ' ' + lesn.cabinet.c_str());
     ui->teacher->setText(QString(locale::get(40)) + ' ' + lesn.__teacher.fullName.c_str());
+    ui->internal_id->setText(QString(locale::get(41)) + ' ' + lesn_id);
 
 }
 
 void lessonView::setID(const char* id) {
     lesn = qbs::lesson::find(id);
+    lesn_id = id;
     refresh();
 }
