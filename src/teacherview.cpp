@@ -13,6 +13,9 @@ teacherView::teacherView(QWidget *parent) :
     ui->teachersS->verticalHeader()->setVisible(false);
     ui->teachersS->setColumnCount(5);
     ui->teachersS->setRowCount(qbs::teacher::allTeachers.size());
+    ui->teachersS->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->teachersS->setFocusPolicy(Qt::NoFocus);
+    ui->teachersS->setSelectionMode(QAbstractItemView::NoSelection);
 
 #define allT qbs::teacher::allTeachers
     ui->teachersS->setRowCount(allT.size());

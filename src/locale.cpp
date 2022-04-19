@@ -3,7 +3,7 @@
 std::vector<std::string> locale::trs;
 
 void locale::init() {
-    //auto tmp = manager::get_file_lines("locale/current.txt");
+    auto tmp = manager::get_file_lines("locale/current.txt");
     trs = manager::get_file_lines("locale/current.txt");
 }
 

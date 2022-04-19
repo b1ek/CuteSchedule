@@ -19,6 +19,7 @@
 #include "config.h"
 
 #define randint(max) QRandomGenerator::global()->generate() % max
+#define NOT(a) (!a)
 
 namespace Ui {
 class fakeloader;
@@ -35,7 +36,6 @@ public:
     fakeloader(Config c, QWidget *parent = nullptr);
     explicit fakeloader(QWidget *parent = nullptr);
     ~fakeloader();
-    void launchApp();
 
 private slots:
     void update();
@@ -49,6 +49,8 @@ private:
     QTimer *lt;
     bool versionCheckd;
     bool shouldBeClosed;
+    bool guiOpened;
+    uint64_t ticksSpent;
 };
 #endif // NOLOAD
 #endif // FAKELOADER_H

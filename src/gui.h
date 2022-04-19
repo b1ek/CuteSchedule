@@ -8,6 +8,7 @@
 #include "manager.h"
 #include "about.h"
 #include "locale.h"
+#include "lessonview.h"
 
 #include <ctime>
 #include <iostream>
@@ -42,7 +43,6 @@ private slots:
     void setTitle(QString text);
     void buttonLeft_pressed();
     void buttonRight_press();
-    void receive_selected_grade(QString id);
     void back();
     void warnNexit();
     void check();
@@ -50,6 +50,9 @@ private slots:
     void posterleftclick();
     void loop();
     void op_authr();
+
+    void receive_selected_grade(QString id);
+    void info_lesson(QString id);
 
 private:
     inline long minutes(int c);
@@ -65,6 +68,7 @@ private:
     gradeSelect *selector;
     gradeView *gview;
     teacherView *tview;
+    lessonView *lesn;
     about *authr;
 
     Config conf;

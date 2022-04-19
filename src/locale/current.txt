@@ -8,7 +8,7 @@ Teachers
 About...
 Exit
 Back
-Forgen in the depths of hell by blek(github@b1ek)
+Forged in the depths of hell by blek(github@b1ek)
 Couldn't load the image!
 Cabinet: 
 Grade
@@ -32,3 +32,9 @@ Warning
 Your program is outdated. Please, install the newest build from official website: cute.blek.codes
 Notes
 Schedule
+Cannot find this class (ID: %s)
+Cab.
+Class properties
+Class name:
+Cabinet:
+Teacher:

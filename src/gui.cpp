@@ -51,13 +51,16 @@ gui::gui(QWidget *parent)
     this->selector = new gradeSelect(ui->menu);
     this->gview = new gradeView(ui->menu);
     this->tview = new teacherView(ui->menu);
+    this->lesn = new lessonView(ui->menu);
     this->authr = new about(ui->menu);
     selector->hide();
     gview->hide();
     tview->hide();
+    lesn->hide();
     authr->hide();
     connect(ui->about, SIGNAL(clicked()), this, SLOT(op_authr()));
     connect(this->selector, &gradeSelect::send_selected, this, &gui::receive_selected_grade);
+    connect(this->gview, &gradeView::send_lesson, this, &gui::info_lesson);
 
     if (QFile::exists(getConfParam("posters/1"))) {
         ui->poster1->setStyleSheet(QString("background: url(").append(getConfParam("posters/1")).append(");\n"));
@@ -165,6 +168,7 @@ void gui::back() {
     this->selector->hide();
     this->gview->hide();
     this->tview->hide();
+    this->lesn->hide();
     this->authr->hide();
 
     ui->mainMenu->show();
@@ -192,19 +196,28 @@ gui::~gui() {
     delete selector;
     delete gview;
     delete tview;
+    delete lesn;
     delete authr;
-}
-
-void gui::receive_selected_grade(QString id) {
-    lastActive = manager::getMSTime();
-    this->selector->hide();
-
-    this->gview->setID(id);
-    this->gview->show();
 }
 
 
 void gui::setTitle(QString value) {
     lastActive = manager::getMSTime();
     ui->uiTitle->setText(value);
+}
+
+void gui::receive_selected_grade(QString id) {
+    back();
+    lastActive = manager::getMSTime();
+
+    this->gview->setID(id);
+    ui->mainMenu->hide();
+    this->gview->show();
+}
+
+void gui::info_lesson(QString id) {
+    back();
+    lesn->setID(id.toStdString().c_str());
+    ui->mainMenu->hide();
+    lesn->show();
 }

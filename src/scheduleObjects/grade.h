@@ -3,6 +3,9 @@
 
 #include "teacher.h"
 #include "lesson.h"
+#include "../manager.h"
+#include "locale.h"
+
 #include <string>
 
 #define __G_NOT_FOUND__ "Invalid ID"
@@ -12,6 +15,7 @@ namespace qbs {
         static std::map<std::string, grade> allGrades;
         std::string name;
         std::string cabinet;
+        std::string note;
         teacher tchr;
         std::vector<std::vector<std::pair<lesson, std::string>>> schedule;
         inline bool operator== (grade&rhs) {
@@ -19,12 +23,14 @@ namespace qbs {
             rhs.name = this->name;
             rhs.cabinet = this->cabinet;
             rhs.tchr = this->tchr;
+            rhs.note = this->note;
             rhs.schedule = this->schedule;
             return true;
         }
         grade() {
             name = __G_NOT_FOUND__;
             cabinet = __G_NOT_FOUND__;
+            note = locale::get(35);
             tchr = qbs::teacher::Empty();
         }
         grade(std::string id) {
@@ -38,6 +44,7 @@ namespace qbs {
             }
             name = std::string("Not found id ") + id;
             cabinet = std::string("Not found id ") + id;
+            note = manager::format(locale::get(35), id.c_str());
             tchr = qbs::teacher::Empty();
         }
         grade operator=(std::string id) {

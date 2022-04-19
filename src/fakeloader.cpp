@@ -53,7 +53,7 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(randint(10000));
+    timer->start(1);
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -74,45 +74,14 @@ fakeloader::~fakeloader() {
     delete manager;
 }
 
-bool openedGui = false;
-void fakeloader::launchApp() {
-    shouldBeClosed = true;
-#ifndef DEV_BUILD
-    ssleep(250);
-    CuteLogger::log("Loading config...");
-    for (int i = 1; i >= 8; i++) {
-        ssleep(15);
-        std::stringstream s;
-        s << "Loading config... [" << i << "/8 chunks passed]";
-        CuteLogger::log(s.str().c_str());
-    }
-    CuteLogger::log("Config loaded.");
-    ssleep(150);
-    CuteLogger::log("Starting services...");
-    ssleep(5);
-    CuteLogger::log("Nothing to start.");
-    CuteLogger::log("Cleaning up...");
-    ssleep(250);
-    CuteLogger::log("Done.");
-    CuteLogger::log("Launching app...");
-#endif // DEV_BUILD
-
-    if (!openedGui) {
-        g = new gui(conf);
-        g->show();
-        openedGui = true;
-    }
-}
-
-bool launch = false;
 void fakeloader::update() {
-    timer->setInterval(15);
-
-    if (shouldBeClosed) {
-        this->close();
-        timer->stop();
+    if (ticksSpent >= manager::getRND(10000, 15000) && NOT(guiOpened)) {
+        g = new gui();
+        g->show();
+        guiOpened = true;
+        close();
     } else {
-        launchApp();
+        ticksSpent++;
     }
 }
 #endif // NOLOAD

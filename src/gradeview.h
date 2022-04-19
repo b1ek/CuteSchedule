@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QStyleFactory>
 #include <QAbstractTableModel>
+#include <QMessageBox>
+
 #include "scheduleObjects/all.h"
 
 #include "locale.h"
@@ -20,6 +22,9 @@ public:
     explicit gradeView(QWidget *parent = nullptr);
     void setID(QString id);
     ~gradeView();
+
+signals:
+    void send_lesson(QString id);
 
 private:
     Ui::gradeView *ui;

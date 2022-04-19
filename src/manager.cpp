@@ -233,3 +233,33 @@ std::string manager::replace(std::string str, const std::string from, const std:
     str.replace(start_pos, from.length(), to);
     return str;
 }
+
+const char* manager::format(size_t &sz, const char* format,  ...) {
+    va_list args;
+    va_start(args, format);
+    sz = snprintf(NULL, 0, format, args);
+    char* ret = new char[sz];
+    sprintf_s(ret, sz, format, args);
+    va_end(args);
+    return ret;
+}
+
+const char* manager::format(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    auto sz = snprintf(NULL, 0, format, args);
+    char* ret = new char[sz];
+    sprintf_s(ret, sz, format, args);
+    va_end(args);
+    return ret;
+}
+
+std::string manager::format(std::string format, ...) {
+    va_list args;
+    va_start(args, format);
+    auto sz = snprintf(NULL, 0, format.c_str(), args);
+    char* ret = new char[sz];
+    sprintf_s(ret, sz, format.c_str(), args);
+    va_end(args);
+    return ret;
+}

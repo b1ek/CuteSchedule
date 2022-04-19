@@ -27,7 +27,7 @@ namespace qbs {
                 __teacher = l.__teacher;
                 cabinet = l.cabinet;
             }
-            name = std::string("Not found class with id ") + id;
+            name = std::string("Not found lesson with id ") + id;
             cabinet = "N/A";
             __teacher = qbs::teacher::Empty();
         }
@@ -66,11 +66,14 @@ struct convert<qbs::lesson> {
             rhs.name = n[l_namekey].as<std::string>();
             rhs.__teacher = qbs::teacher::find(n[l_tchrkey].as<std::string>());
             rhs.cabinet = n[l_classkey].as<std::string>();
-            return true;
+        } else {
+            rhs.__teacher = qbs::teacher::find(n[0].as<std::string>());
+            rhs.name = n[1].as<std::string>();
+            rhs.cabinet = n[2].as<std::string>();
         }
-        rhs.__teacher = qbs::teacher::find(n[0].as<std::string>());
-        rhs.name = n[1].as<std::string>();
-        rhs.cabinet = n[2].as<std::string>();
+        if (rhs.cabinet == ".") {
+            rhs.cabinet = "?";
+        }
         return true;
     }
 };
