@@ -80,17 +80,18 @@ teachers:
     john:  [И. И. Иванович, Иван Иванов Иванович, -1]
 
 lessons:
-    chm1:  [vp1, Химия, 18] # 8-10
+    chm:   [vp1, Химия, 18] # 8-10
     inf:   [vp1, Информатика, 20] # 7-10
     indp:  [vp1, Инд. Проект, 17] # 10
     fuck:  [john, Факультатив, 12]
+    star:  [mm1, Астрономия, 9]
 
     chr:   [ki1, Черчение, 7] # 7
 
     his:   [lt1, История, 4] # 5-10
     soc:   [lt1, Обществознание, 4] # 5-10
 
-    eco1:  [lt1, Экономика, 4] # 10
+    eco:   [lt1, Экономика, 4] # 10
 
     crf1:  [vp1, Технология, 7] # 7а, 8а
     crf2:  [ke1, Технология, 21] # 5-6
@@ -122,6 +123,8 @@ lessons:
     en1:   [ik1, Английский, 19/12] # 1-8
     en2:   [kg1, Английский язык, 12] # 2-6, 7, 9
     en3:   [tl1, Английский язык, 12] # 8 - 10
+    en4:   [tl1, Английский язык, 19]
+    en5:   [tl1, Английский язык, 10]
 
     mus1:  [sa1, Музыка, 18] # 5 - 7
     mus2:  [vp1, Музыка, 10] # 8
@@ -300,17 +303,38 @@ grades:
             [his, nru1, lit1, alg2, pa2]
         ]
 
+    8A:
+        name: 8А
+        cabinet: 8А
+        teacher: john
+        schedule: [
+            [his, chm, en1, alg1, fiz1, chr],
+            [chm, en1, bio, slb, fiz1, geom1, lit3],
+            [bio, ru3, pa2, geo1, alg1, ru3, lit3],
+            [geom1, geo1, nru1, soc, chm, ru3],
+            [pa2, alg1, inf, en1, his,  crf1, mus1]
+        ]
 
     9A:
         name: 9A
         cabinet: 9
         teacher: john
         schedule: [
-            [en3, ru1, fiz2, his, alg1, chm1, bio],
-            [geo1, chm1, geom1, fiz2, nlit, bio, lit1],
+            [en3, ru1, fiz2, his, alg1, chm, bio],
+            [geo1, chm, geom1, fiz2, nlit, bio, lit1],
             [fiz2, his, lit1, nru1, en3, alg1, pa2],
             [pa2, soc, geo1, ru2, lit1, geo1],
-            [inf, en2, slb, ru2, chm1, alg1]
+            [inf, en2, slb, ru2, chm, alg1]
         ]
 
-
+    10A:
+        name: 10А
+        cabinet: 10А
+        teacher: john
+        schedule: [
+            [alg1, his, chm, fiz2, geo1, lit3, eco],
+            [en1f, en4, pa2, indp, geom1, geo, lit3, soc],
+            [alg1, geo, alg1, soc, star, en5],
+            [soc, pa2, inf, geom1, eco, bio, nru2],
+            [alg1, his, nru2, en4, slb, soc]
+        ]

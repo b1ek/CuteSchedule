@@ -1,41 +1,41 @@
-Warning
-Program can behave weird; the configuration file was not done\n\nTo disable this warning, set configNotDone parameter in the config file to false or remove it.
-Last exit: %m month %d day %Y year %H:%M:%S\n
-Interactive menu
-Main menu
-Schedule
-Teachers
-About...
-Exit
-Back
-Forged in the depths of hell by blek(github@b1ek)
-Couldn't load the image!
-Cabinet: 
-Grade
-Teacher:
-Monday
-Tuesday
-Wednesday
-Thursday
-Friday
-Saturday
+Предупреждение
+Программа может работать некорректно, файл конфигурации не был закончен\n\nЧтобы отключить это, поставьте параметр configNotDone в конфиге на false или уберите его.
+В последний раз выход был выполнен: %mго месяца %d дня %Y года %H:%M:%S\n
+Интерактивное настенное меню
+Главное меню
+Расписание
+Учитель
+Об авторе
+Выйти
+Назад
+Создано в лабаратории белки(github@b1ek)
+Не удалось загрузить постер!
+Кабинет:
+ Класс
+ Кл. Руководитель:
+Понедельник
+Вторник
+Среда
+Четверг
+Пятница
+Суботта
 ID
-Name
-Full name
-Cabinet
-Curr. cabinet
+Имя
+Полное имя
+Кабинет
+Тек. Каб
 N/a
-Note
-This menu is an experimental feature. Please, report any errors or bugs to the developer(see About... button)
-Close
-Warning
-Your program is outdated. Please, install the newest build from official website: cute.blek.codes
-Notes
-Schedule
-Cannot find this class (ID: %s)
-Cab.
-Class properties
-Class name:
-Cabinet:
-Teacher:
-Internal ID:
+Заметка
+Это меню является экспериментальной функцией. Пожалуйста, сообщайте о любых ошибках / багах разработчику (снизу кнопка "О разработчике")
+Закрыть
+Предупреждение
+Текущая версия программы устарела. Пожалуйста, установите свежую версию с официального сайта (cute.blek.codes)
+Заметки
+Расписание
+Не могу найти урок с ID %s
+Каб.
+Информация об уроке
+Название:
+Кабинет:
+Учитель:
+Внутренний ID:
