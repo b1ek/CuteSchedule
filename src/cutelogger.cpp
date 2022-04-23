@@ -1,53 +1,64 @@
 #include "cutelogger.h"
 
-QFile* CuteLogger::out;
+QFile *CuteLogger::out;
+QTextStream *CuteLogger::outs;
 QDateTime CuteLogger::date;
 bool CuteLogger::initalized;
 
 // TODO:
 //  do the logger
 
-void CuteLogger::init() {/*
+void CuteLogger::init() {
     if (initalized) return;
-    CuteLogger::out = open();
-    CuteLogger::initalized = true;*/
+    open();
+
+    CuteLogger::initalized = true;
 }
 
-void CuteLogger::uninit() {/*
+void CuteLogger::uninit() {
     if (!initalized) return;
-    CuteLogger::out->close();
-    CuteLogger::initalized = false;*/
+    out->close();
+
+    CuteLogger::initalized = false;
 }
 
-void CuteLogger::reload() {/*
+void CuteLogger::reload() {
     if (CuteLogger::initalized) {
         uninit();
     }
-    init();*/
+    init();
 }
 
-void CuteLogger::info(QString msg) {/*
+void CuteLogger::info(QString msg) {
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[INFO]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
+    CuteLogger::write(QString("[INFO]  ") +
+                      date.toString("[hh:mm:ss.zz] ") +
+                      msg + '\n');
 }
 
-void CuteLogger::warn(QString msg) {/*
+void CuteLogger::warn(QString msg) {
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[WARN]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
+    CuteLogger::write(QString("[WARN]  ") +
+                      date.toString("[hh:mm:ss.zz] ") +
+                      msg + '\n');
 }
 
-void CuteLogger::eror(QString msg) {/*
+void CuteLogger::eror(QString msg) {
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[ERROR] ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
+    CuteLogger::write(QString("[ERROR] ") +
+                      date.toString("[hh:mm:ss.zz] ") +
+                      msg + '\n');
 }
 
-void CuteLogger::crit(QString msg) {/*
+void CuteLogger::crit(QString msg) {
     CuteLogger::date = QDateTime::currentDateTime();
-    CuteLogger::write(QString("[CRIT]  ") + date.toString("[hh:mm:ss.zz] ") + msg + '\n');*/
+    CuteLogger::write(QString("[CRIT]  ") +
+                      date.toString("[hh:mm:ss.zz] ") +
+                      msg + '\n');
 
 }
 
-void CuteLogger::log(QString msg, Code c) {/*
+void CuteLogger::log(QString msg, Code c) {
     switch (c) {
     case Code::Info:
         info(msg);
@@ -66,21 +77,30 @@ void CuteLogger::log(QString msg, Code c) {/*
 
 void CuteLogger::write(QString msg) {
     if (!initalized) CuteLogger::init();
-    CuteLogger::out->write(msg.toLocal8Bit());
+    *outs << msg;
 }
 
-QFile *CuteLogger::open() {
+void CuteLogger::open() {
+    if (initalized) return;
     CuteLogger::date = QDateTime::currentDateTime();
     if (!QDir("logs").exists()) {
         QDir().mkdir("logs");
     }
-    auto nm = (QString("logs/") + date.toString("yy.MM.dd - hh:mm") + ".log.txt");
-    auto f = new QFile(nm);
-    if (!f->open(QIODevice::WriteOnly)) {
-        f->close();
-        return CuteLogger::out;
+    auto nm = (QString("logs/log_") + manager::getDate("%Y_%m_%d__%H_%M").c_str() + ".log.txt");
+    out = new QFile(nm);
+    outs = new QTextStream(out);
+
+    if (out->error()) {
+        goto err;
     }
-    if (f->exists()) {
-        f->open(f->openMode() | QIODevice::Append);
-    }*/
+
+    if (out->open(QIODevice::WriteOnly | QIODevice::Append)) {
+        QTextStream a(out);
+        return;
+    }
+    return;
+    err:
+    QMessageBox::critical(nullptr, "Error", QString("Could not open file ") + nm + ": " + out->errorString());
+    manager::quit(CANT_OPEN_LOG_FILE);
+    return;
 }

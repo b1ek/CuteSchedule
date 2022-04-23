@@ -134,7 +134,7 @@ void gui::warnNexit() {
     std::ofstream out("lastExit.txt");
     out << manager::getDate(locale::get(3));
     out.close();
-    manager::quit(7);
+    manager::quit(USER_CAUSED);
 
 }
 

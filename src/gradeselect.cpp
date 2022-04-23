@@ -17,15 +17,12 @@ gradeSelect::gradeSelect(QWidget *parent) :
             row++;
             col = 0;
         }
-        //if (row <= 5) {
-            lbl->setText(i->first.c_str());
-            lay->addWidget(lbl, row, col);
-            // "QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}"
-            lbl->setStyleSheet("QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}");
-            connect(lbl, &QPushButton::clicked, this, [=](){this->handle_b(dynamic_cast<QPushButton*>(sender())->text());});
+        lbl->setText(i->first.c_str());
+        lay->addWidget(lbl, row, col);
+        lbl->setStyleSheet("QPushButton {min-width: 128px;min-height: 64px;max-width: 128px;max-height: 64px;}");
+        connect(lbl, &QPushButton::clicked, this, [=](){this->handle_b(dynamic_cast<QPushButton*>(sender())->text());});
 
-            lbl->show();
-        //}
+        lbl->show();
         col++;
     }
     setLayout(lay);

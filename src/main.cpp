@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
     if (c.get("configNotDone") == "true") {
         QMessageBox::warning(nullptr, locale::get(1), locale::get(2));
     }
-    CuteLogger::init();
+    //CuteLogger::init();
     CuteLogger::log("hi");
 
 

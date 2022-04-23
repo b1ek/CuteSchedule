@@ -5,9 +5,13 @@
 #include <QDir>
 #include <QDateTime>
 #include <QString>
+#include <QMessageBox>
 
 #include <iosfwd>
 #include <string>
+
+#include "manager.h"
+#include "errors.h"
 
 class CuteLogger
 {
@@ -24,8 +28,9 @@ public:
 
 private:
     static void write(QString msg);
-    static QFile *open();
-    static QFile *out;
+    static void open();
+    static QFile* out;
+    static QTextStream *outs;
     static QDateTime date;
     static bool initalized;
 
