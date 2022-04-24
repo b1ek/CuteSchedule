@@ -25,6 +25,9 @@ public:
     std::string get(std::string what);
     YAML::Node getNode(std::string ofWhat, bool& exists);
     bool exists(std::string what);
+private:
+    static bool isconf;
+    static Config loaded;
 
 };
 

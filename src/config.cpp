@@ -28,12 +28,37 @@ std::vector<std::string> split (std::string s, std::string delimiter) {
    return res;
 }
 
+bool Config::isconf;
+Config Config::loaded;
+
 std::map<std::string, qbs::grade> qbs::grade::allGrades;
 std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
 std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
+
+    if (isconf) {
+        this->file = loaded.file;
+        return;
+    }
+
+    int attemptsCreate = 0;
+    createConf:
     if (!fexist("config.yml")) {
         CuteLogger::log("No config file found, created a default one");
+        QFile def(":/defconf");
+        if (!def.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            if (attemptsCreate >= 5) {
+                QMessageBox::information(nullptr, "Error", "Cannot access config.yml, tried 5 times");
+                manager::quit(-1);
+            }
+            attemptsCreate++;
+            goto createConf;
+        }
+        QTextStream in(&def);
+        std::ofstream f;
+        f.open("config.yml");
+        f << in.readAll().toStdString();
+        f.close();
     }
 
     this->file = YAML::LoadFile("config.yml");
@@ -46,6 +71,9 @@ Config::Config() {
             .as<std::map<std::string, qbs::grade>>();
 
     CuteLogger::log("Loaded config");
+
+    isconf = true;
+    loaded.file = this->file;
 }
 
 void Config::reload() {

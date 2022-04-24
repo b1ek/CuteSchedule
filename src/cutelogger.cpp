@@ -1,7 +1,6 @@
 #include "cutelogger.h"
 
 QFile *CuteLogger::out;
-QTextStream *CuteLogger::outs;
 QDateTime CuteLogger::date;
 bool CuteLogger::initalized;
 
@@ -77,7 +76,8 @@ void CuteLogger::log(QString msg, Code c) {
 
 void CuteLogger::write(QString msg) {
     if (!initalized) CuteLogger::init();
-    *outs << msg;
+    QTextStream st(out);
+    st << msg;
 }
 
 void CuteLogger::open() {
@@ -88,7 +88,6 @@ void CuteLogger::open() {
     }
     auto nm = (QString("logs/log_") + manager::getDate("%Y_%m_%d__%H_%M").c_str() + ".log.txt");
     out = new QFile(nm);
-    outs = new QTextStream(out);
 
     if (out->error()) {
         goto err;
@@ -96,6 +95,13 @@ void CuteLogger::open() {
 
     if (out->open(QIODevice::WriteOnly | QIODevice::Append)) {
         QTextStream a(out);
+        a << AY_OBFUSCATE("CuteSchedule ver. " VERSION " " VERCODE " by blek!\n"
+        "CuteLogger ver. " CUTELOG_V "\n"
+        "\n"
+        "This program is free software and released under GNU GPLv3 license.\n"
+        "If you bought this program, you have all rights to demand a refund.\n"
+        "Official website: cute.blek.codes\n\n");
+
         return;
     }
     return;

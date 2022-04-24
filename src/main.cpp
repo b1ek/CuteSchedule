@@ -67,25 +67,12 @@ int main(int argc, char *argv[]) {
     #define styles res.readAll().toStdString().c_str()
     app->setStyleSheet(styles);
 
-    if (!manager::fexists("config.yml")) {
-        QFile def(":/defconf");
-        if (!def.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QMessageBox::information(nullptr, "Error", "Cannot access config.yml");
-            return -1;
-        }
-        QTextStream in(&def);
-        std::ofstream f;
-        f.open("config.yml");
-        f << in.readAll().toStdString();
-        f.close();
-    }
+    CuteLogger::log("Program launched");
 
     Config c;
     if (c.get("configNotDone") == "true") {
         QMessageBox::warning(nullptr, locale::get(1), locale::get(2));
     }
-    //CuteLogger::init();
-    CuteLogger::log("hi");
 
 
     #ifndef NOLOAD

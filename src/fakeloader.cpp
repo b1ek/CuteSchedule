@@ -85,12 +85,37 @@ fakeloader::~fakeloader() {
     delete manager;
 }
 
+int step = 0;
+
 void fakeloader::update() {
-    if (NOT(guiOpened)) {
-        g = new gui();
-        g->show();
-        close();
-        guiOpened = true;
+
+    switch (step) {
+        case 0:
+            CuteLogger::log(locale::get(42));
+            timer->setInterval(manager::getRND(0, 500));
+            break;
+        case 1:
+            CuteLogger::log(locale::get(43));
+            timer->setInterval(manager::getRND(0, 200));
+            break;
+        case 7:
+            CuteLogger::log("Creating window with interface");
+            timer->setInterval(manager::getRND(0, 250));
+            break;
+        case 8:
+            if (NOT(guiOpened)) {
+                g = new gui();
+                g->show();
+                close();
+                guiOpened = true;
+            }
+            break;
     }
+    if (step >= 2 && step <= 6) {
+        CuteLogger::log(QString("Cleaning up temporary files ") + std::to_string(step - 2).c_str() + "/4");
+        timer->setInterval(manager::getRND(0, 500));
+    }
+    if (step >= 7) step++;
+
 }
 #endif // NOLOAD

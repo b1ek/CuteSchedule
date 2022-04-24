@@ -12,6 +12,9 @@
 
 #include "manager.h"
 #include "errors.h"
+#include "obfuscate.h"
+
+#define CUTELOG_V "1.0.4 beta"
 
 class CuteLogger
 {
@@ -30,7 +33,6 @@ private:
     static void write(QString msg);
     static void open();
     static QFile* out;
-    static QTextStream *outs;
     static QDateTime date;
     static bool initalized;
 
