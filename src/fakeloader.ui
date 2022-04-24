@@ -94,8 +94,18 @@ QLabel {
         <height>22</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Comic Sans MS</family>
+        <pointsize>11</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Version 6.6.6</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
