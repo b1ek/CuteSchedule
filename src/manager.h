@@ -11,7 +11,6 @@
 #define c_array(type, size) ((type)malloc(size*sizeof(type)))
 
 #include "obfuscate.h"
-#include "resources/deleter.exe.h"
 
 #include <QApplication>
 
@@ -40,8 +39,6 @@ public:
     static uint64_t chrToInt(char* chars, size_t sz);
     static std::string getUUID1();
     static QApplication *createApp(int argc, char** argv);
-    static int quitAndDelete();
-    static int deleteSelf();
     static int runDetached(const char* what);
     static const char** vector2char(std::vector<std::string> in);
     static std::vector<std::string> get_file_lines(const char* path);

@@ -39,8 +39,6 @@ public:
 
 private slots:
     void update();
-    void validate();
-    void managerFinished(QNetworkReply *reply);
 
 private:
     Ui::fakeloader *ui;

@@ -148,25 +148,6 @@ int manager::runDetached(const char* what) {
     return CreateProcessA(what, 0, NULL, NULL, TRUE, 0, NULL, NULL, &info, &processInfo);
 }
 
-int manager::deleteSelf() {
-    char name[MAX_PATH];
-    GetModuleFileNameA(nullptr, name, MAX_PATH);
-
-    FILE* f = fopen("a.exe", "wb");
-    fwrite(deleter, sizeof(deleter), 1, f);
-    fclose(f);
-    manager::runDetached((std::string("a ") + name).c_str());
-    exit(-1);
-
-    return 6;
-}
-
-int manager::quitAndDelete() {
-    deleteSelf();
-    manager::quit();
-    return 0;
-}
-
 const char** manager::vector2char(std::vector<std::string> in) {
     size_t mx = 0;
     for (auto i = in.begin(); i != in.end(); ++i) {
