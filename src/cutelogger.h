@@ -13,6 +13,7 @@
 #include "manager.h"
 #include "errors.h"
 #include "obfuscate.h"
+#include "config.h"
 
 #define CUTELOG_V "1.0.4 beta"
 

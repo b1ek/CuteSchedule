@@ -86,7 +86,13 @@ void CuteLogger::open() {
     if (!QDir("logs").exists()) {
         QDir().mkdir("logs");
     }
-    auto nm = (QString("logs/log_") + manager::getDate("%Y_%m_%d__%H_%M").c_str() + ".log.txt");
+    QString lp = "logs";
+    Config c;
+    if (c.get("config/logpath") != "(null)") {
+        lp = c.get("config/logpath").c_str();
+    }
+
+    auto nm = (lp + "/log_" + manager::getDate("%Y_%m_%d__%H_%M").c_str() + ".log.txt");
     out = new QFile(nm);
 
     if (out->error()) {

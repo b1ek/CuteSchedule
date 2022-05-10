@@ -36,15 +36,9 @@ std::map<std::string, qbs::teacher> qbs::teacher::allTeachers;
 std::map<std::string, qbs::lesson> qbs::lesson::allLessons;
 Config::Config() {
 
-    if (isconf) {
-        this->file = loaded.file;
-        return;
-    }
-
     int attemptsCreate = 0;
     createConf:
     if (!fexist("config.yml")) {
-        CuteLogger::log("No config file found, created a default one");
         QFile def(":/defconf");
         if (!def.open(QIODevice::ReadOnly | QIODevice::Text)) {
             if (attemptsCreate >= 5) {
@@ -69,8 +63,6 @@ Config::Config() {
             .as<std::map<std::string, qbs::lesson>>();
     qbs::grade::allGrades = this->getNode("grades", exists)
             .as<std::map<std::string, qbs::grade>>();
-
-    CuteLogger::log("Loaded config");
 
     isconf = true;
     loaded.file = this->file;
