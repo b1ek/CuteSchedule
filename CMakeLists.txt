@@ -23,7 +23,7 @@ set_source_files_properties(res.rc PROPERTIES LANGUAGE RC)
 
 # add_compile_definitions(NOLOAD)
 # add_compile_definitions(DEV_BUILD)
-add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION} Demo build 1.015")
+add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION} Demo build 1.017")
 add_compile_definitions(VERCODE="Cutie")
 
 set(TS_FILES CuteSchedule_ru_RU.ts)
