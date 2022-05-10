@@ -27,7 +27,7 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(manager::getRND(1000, 2000));
+    timer->start(manager::getRND(4500, 5500));
     guiOpened = false;
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
