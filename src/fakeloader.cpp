@@ -27,11 +27,12 @@ fakeloader::fakeloader(Config __conf, QWidget *parent) :
     timer_c = 0;
     this->timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(manager::getRND(10000, 12000));
+    timer->start(manager::getRND(1000, 2000));
+    guiOpened = false;
     //this->setStyle(QStyleFactory::create("fusion"));
     //SetWindowLongPtrA((HWND)winId(), GWL_STYLE, WS_THICKFRAME);
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::SubWindow);
     ui->setupUi(this);
 #ifndef DEV_BUILD
     ui->label->setText("Version " VERSION);

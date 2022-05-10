@@ -71,6 +71,8 @@ QApplication *manager::createApp(int argc, char **argv) {
               );
     af.close();
     a = new QApplication(argc, argv);
+    a->setApplicationVersion(VERSION);
+    a->setWindowIcon(QIcon(":/ico"));
     return a;
 }
 

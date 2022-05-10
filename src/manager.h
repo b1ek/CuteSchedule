@@ -13,6 +13,7 @@
 #include "obfuscate.h"
 
 #include <QApplication>
+#include <QIcon>
 
 #include <iostream>
 #include <fstream>
