@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Network LinguistTools REQUIRED)
@@ -25,6 +25,8 @@ set_source_files_properties(res.rc PROPERTIES LANGUAGE RC)
 # add_compile_definitions(DEV_BUILD)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION} Demo build 1.017")
 add_compile_definitions(VERCODE="Cutie")
+
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -m32")
 
 set(TS_FILES CuteSchedule_ru_RU.ts)
 
