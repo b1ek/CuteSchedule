@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-file(GLOB_RECURSE PROJECT_SOURCES "src/*.cpp" "src/*.cxx" "src/*.h" "src/*.hpp")
+file(GLOB_RECURSE PROJECT_SOURCES "src/**.cpp" "src/**.cxx" "src/**.h" "src/**.hpp")
 list(APPEND PROJECT_SOURCES "main.cpp")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,7 +38,26 @@ else()
     endif()
 endif()
 
-target_link_libraries(CuteSchedule PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+# --- External projects include --- #
+# Add yaml-cpp
+include(ExternalProject)
+set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
+ExternalProject_Add(yaml-cpp
+    GIT_REPOSITORY "https://github.com/jbeder/yaml-cpp"
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+)
+
+include_directories(${EXTERNAL_INSTALL_LOCATION}/include)
+link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
+
+add_dependencies(CuteSchedule yaml-cpp)
+
+# --- End external projects --- #
+
+target_link_libraries(CuteSchedule
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
 
 set_target_properties(CuteSchedule PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
