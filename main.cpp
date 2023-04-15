@@ -1,6 +1,9 @@
 #include "src/mainwindow.h"
 
 #include <QApplication>
+#include <iostream>
+
+#include "yaml-cpp/yaml.h"
 
 int main(int argc, char *argv[])
 {

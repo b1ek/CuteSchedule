@@ -42,7 +42,8 @@ endif()
 # Add yaml-cpp
 include(ExternalProject)
 set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
-ExternalProject_Add(yaml-cpp
+
+ExternalProject_Add(yaml-cpp-src
     GIT_REPOSITORY "https://github.com/jbeder/yaml-cpp"
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
 )
@@ -50,13 +51,19 @@ ExternalProject_Add(yaml-cpp
 include_directories(${EXTERNAL_INSTALL_LOCATION}/include)
 link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
 
-add_dependencies(CuteSchedule yaml-cpp)
+add_library(yaml-cpp UNKNOWN IMPORTED)
+add_dependencies(CuteSchedule yaml-cpp-src)
+
+set_target_properties(yaml-cpp PROPERTIES
+    IMPORTED_LOCATION ${EXTERNAL_INSTALL_LOCATION}/lib/libyaml-cpp.a
+)
 
 # --- End external projects --- #
 
 target_link_libraries(CuteSchedule
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
+    yaml-cpp
 )
 
 set_target_properties(CuteSchedule PROPERTIES
