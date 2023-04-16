@@ -3,3 +3,6 @@ version: '2'
 config:
     title: 'CuteSchedule'
     fullscreen_mode: true
+
+data:
+    from_file: data.yml
