@@ -12,24 +12,31 @@
 #endif
 
 #include <QApplication>
+#include <QErrorMessage>
 
 #include <iostream>
 
 #include "src/config/config.h"
-#include "src/sysutil.h"
 #include "src/mainwindow.h"
+#include "src/util/userutil.h"
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+
     Config config;
 
-    std::cout << config.loadDefaultConfig() << '\n';
-    return 0;
+    if (!config.loadDefaultConfig()) {
+        UserUtil::showError(
+            QString("Cannot load config:\n") +
+            "\n" +
+            "Error code: 0x" + QString::number(config.getLastErrorCode()) + "\n"
+        );
+        return config.getLastErrorCode();
+    }
 
-    QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
 
     return a.exec();
 }
