@@ -7,15 +7,24 @@
 #endif
 #endif
 
+#ifdef _WIN32
+#pragma message ( "Windows build is not supported, and should be quite unstable." )
+#endif
+
 #include <QApplication>
 
-#include "./src/config/config.h"
+#include <iostream>
+
+#include "src/config/config.h"
+#include "src/sysutil.h"
 #include "src/mainwindow.h"
 
 int main(int argc, char *argv[])
 {
     Config config;
 
+    std::cout << config.loadDefaultConfig() << '\n';
+    return 0;
 
     QApplication a(argc, argv);
     MainWindow w;
